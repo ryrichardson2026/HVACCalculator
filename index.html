@@ -52,16 +52,17 @@
 <style>
   :root {
     --navy-deep:  #0D2137;
-    --navy-mid:   #111E2E;
-    --navy-card:  #162438;
+    --navy-mid:   #FFFFFF;
+    --navy-card:  #F5F7FA;
     --navy-input: #0A1628;
     --orange:     #FF6B35;
     --orange-dk:  #E55A28;
-    --blue-muted: #8AAFC8;
+    --blue-muted: #6B8299;
     --blue-dim:   #4A6A8A;
     --white:      #FFFFFF;
-    --border:     rgba(255,255,255,0.08);
-    --border-hover: rgba(255,255,255,0.18);
+    --border:     #E2EAF2;
+    --border-hover: #B8C9D9;
+    --text-dark:  #0D1F3C;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -170,7 +171,7 @@
   .hero h1 span { color: var(--orange); }
   .hero-sub {
     font-size: 15px;
-    color: var(--blue-muted);
+    color: rgba(255,255,255,0.8);
     max-width: 480px;
     margin: 0 auto 28px;
     line-height: 1.65;
@@ -184,29 +185,30 @@
   }
 
   .calc-card {
-    background: var(--navy-mid);
+    background: var(--white);
     border-radius: 16px;
     border: 1px solid var(--border);
     overflow: hidden;
+    box-shadow: 0 8px 40px rgba(13,31,60,0.12);
   }
 
   /* PROGRESS */
   .progress-bar {
-    background: var(--navy-input);
+    background: var(--navy-deep);
     padding: 14px 20px;
     display: flex;
     align-items: center;
     gap: 6px;
-    border-bottom: 1px solid var(--border);
+    border-bottom: 1px solid rgba(255,255,255,0.08);
   }
   .prog-seg {
     flex: 1;
     height: 3px;
-    background: var(--border);
+    background: rgba(255,255,255,0.15);
     border-radius: 2px;
     transition: background 0.3s;
   }
-  .prog-seg.done { background: var(--blue-dim); }
+  .prog-seg.done { background: rgba(255,255,255,0.4); }
   .prog-seg.active { background: var(--orange); }
   .prog-label {
     font-size: 11px;
@@ -227,14 +229,14 @@
     font-family: 'Barlow Condensed', sans-serif;
     font-size: 24px;
     font-weight: 800;
-    color: var(--white);
+    color: var(--navy-deep);
     text-transform: uppercase;
     letter-spacing: 0.5px;
     margin-bottom: 4px;
   }
   .step-hint {
     font-size: 13px;
-    color: var(--blue-muted);
+    color: #6B8299;
     margin-bottom: 18px;
   }
 
@@ -251,24 +253,25 @@
     transition: all 0.15s;
     background: var(--navy-card);
     text-align: left;
+    color: var(--navy-deep);
     display: flex;
     align-items: center;
     gap: 10px;
     width: 100%;
   }
-  .opt:hover { border-color: var(--border-hover); background: rgba(255,255,255,0.04); }
-  .opt.selected { border-color: var(--orange); background: rgba(255,107,53,0.08); }
+  .opt:hover { border-color: #B8C9D9; background: #EEF3F7; }
+  .opt.selected { border-color: var(--orange); background: rgba(212,84,31,0.06); }
   .opt-icon {
     font-size: 18px;
     width: 32px; height: 32px;
-    background: rgba(255,255,255,0.05);
+    background: #EEF3F7;
     border-radius: 6px;
     display: flex; align-items: center; justify-content: center;
     flex-shrink: 0;
   }
-  .opt.selected .opt-icon { background: rgba(255,107,53,0.15); }
-  .opt-label { font-size: 13px; font-weight: 700; color: var(--white); margin-bottom: 1px; }
-  .opt-sub { font-size: 11px; color: var(--blue-dim); }
+  .opt.selected .opt-icon { background: rgba(212,84,31,0.1); }
+  .opt-label { font-size: 13px; font-weight: 700; color: var(--navy-deep); margin-bottom: 1px; }
+  .opt-sub { font-size: 11px; color: #6B8299; }
 
   /* SELECT */
   .city-select {
@@ -279,18 +282,18 @@
     border-radius: 10px;
     font-size: 14px;
     font-weight: 600;
-    color: var(--white);
+    color: var(--navy-deep);
     font-family: 'Barlow', sans-serif;
     cursor: pointer;
     outline: none;
     appearance: none;
     -webkit-appearance: none;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238AAFC8' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%234A6A8A' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
     background-repeat: no-repeat;
     background-position: right 14px center;
     padding-right: 36px;
   }
-  .city-select option { background: var(--navy-deep); color: var(--white); }
+  .city-select option { background: #fff; color: var(--navy-deep); }
   .city-select:focus { border-color: var(--orange); }
 
   /* NAV BUTTONS */
@@ -299,23 +302,23 @@
     gap: 8px;
     margin-top: 20px;
     padding-top: 18px;
-    border-top: 1px solid var(--border);
+    border-top: 1px solid #E2EAF2;
   }
   .btn-back {
     background: none;
-    border: 1px solid var(--border);
+    border: 1px solid #E2EAF2;
     border-radius: 8px;
     padding: 11px 18px;
     font-size: 13px;
     font-weight: 700;
-    color: var(--blue-dim);
+    color: #6B8299;
     cursor: pointer;
     font-family: 'Barlow', sans-serif;
     text-transform: uppercase;
     letter-spacing: 0.5px;
     transition: all 0.15s;
   }
-  .btn-back:hover { border-color: var(--border-hover); color: var(--blue-muted); }
+  .btn-back:hover { border-color: #B8C9D9; color: var(--navy-deep); }
   .btn-next {
     flex: 1;
     background: var(--orange);
@@ -337,9 +340,10 @@
   /* ── RESULT PANEL — ORANGE ── */
   .result-panel {
     display: none;
-    background: var(--orange);
-    color: var(--navy-deep);
+    background: #F5F7FA;
+    color: #0D1F3C;
     padding: 28px 20px;
+    border-top: 3px solid #FF6B35;
   }
   .result-panel.active { display: block; }
 
@@ -348,33 +352,35 @@
     font-weight: 800;
     letter-spacing: 2.5px;
     text-transform: uppercase;
-    color: rgba(13,33,55,0.6);
+    color: #6B8299;
+    font-size: 10px;
     margin-bottom: 6px;
   }
   .result-system {
     font-size: 13px;
     font-weight: 600;
-    color: rgba(13,33,55,0.7);
+    color: #6B8299;
     margin-bottom: 2px;
   }
   .result-range {
     font-family: 'Barlow Condensed', sans-serif;
-    font-size: clamp(38px, 10vw, 58px);
+    font-size: clamp(40px, 11vw, 72px);
     font-weight: 800;
-    color: var(--navy-deep);
+    color: #0D1F3C;
     line-height: 1;
-    margin-bottom: 6px;
-    letter-spacing: -1px;
+    margin-bottom: 8px;
+    letter-spacing: -2px;
   }
   .result-local {
     font-size: 12px;
-    color: rgba(13,33,55,0.6);
+    color: #6B8299;
     margin-bottom: 20px;
     line-height: 1.6;
   }
 
   .result-breakdown {
-    background: rgba(13,33,55,0.1);
+    background: #F5F7FA;
+    border: 1px solid #E2EAF2;
     border-radius: 10px;
     padding: 14px;
     margin-bottom: 16px;
@@ -384,26 +390,27 @@
     font-weight: 800;
     letter-spacing: 2px;
     text-transform: uppercase;
-    color: rgba(13,33,55,0.5);
+    color: #4A6A8A;
     margin-bottom: 10px;
   }
   .bd-row {
     display: flex;
     justify-content: space-between;
     font-size: 12px;
-    color: rgba(13,33,55,0.7);
+    color: #6B8299;
     padding: 4px 0;
-    border-bottom: 1px solid rgba(13,33,55,0.08);
+    border-bottom: 1px solid #E2EAF2;
   }
   .bd-row:last-child { border-bottom: none; }
-  .bd-row span:last-child { font-weight: 700; color: var(--navy-deep); }
+  .bd-row span:last-child { font-weight: 700; color: #0D1F3C; }
 
   .rebate-note {
-    background: rgba(13,33,55,0.12);
+    background: rgba(255,107,53,0.06);
+    border: 1px solid rgba(255,107,53,0.2);
     border-radius: 8px;
     padding: 10px 12px;
     font-size: 12px;
-    color: rgba(13,33,55,0.8);
+    color: #6B4020;
     margin-bottom: 16px;
     line-height: 1.6;
     font-weight: 500;
@@ -411,23 +418,24 @@
 
   /* CTA INSIDE RESULT */
   .result-cta-box {
-    background: var(--navy-deep);
+    background: #F5F7FA;
+    border: 1px solid #E2EAF2;
     border-radius: 12px;
-    padding: 20px;
+    padding: 16px;
     margin-bottom: 12px;
   }
   .result-cta-title {
     font-family: 'Barlow Condensed', sans-serif;
     font-size: 20px;
     font-weight: 800;
-    color: var(--white);
+    color: #0D1F3C;
     text-transform: uppercase;
     letter-spacing: 0.5px;
     margin-bottom: 4px;
   }
   .result-cta-sub {
     font-size: 12px;
-    color: var(--blue-muted);
+    color: #6B8299;
     margin-bottom: 14px;
   }
   .tally-bg {
@@ -442,15 +450,15 @@
     gap: 10px;
     margin-bottom: 12px;
   }
-  .or-line { flex: 1; height: 1px; background: var(--border); }
-  .or-text { font-size: 10px; color: var(--blue-dim); text-transform: uppercase; letter-spacing: 1px; }
+  .or-line { flex: 1; height: 1px; background: #E2EAF2; }
+  .or-text { font-size: 10px; color: #6B8299; text-transform: uppercase; letter-spacing: 1px; }
   .phone-cta {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 8px;
-    background: var(--orange);
-    color: var(--white);
+    background: #0D1F3C;
+    color: #FFFFFF;
     text-decoration: none;
     border-radius: 8px;
     padding: 13px;
@@ -462,19 +470,20 @@
   }
   .result-guarantee {
     font-size: 11px;
-    color: var(--blue-dim);
+    color: #6B8299;
     text-align: center;
     margin-top: 10px;
   }
 
   .btn-restart {
     background: none;
-    border: 1px solid rgba(13,33,55,0.2);
+    background: #FFFFFF;
+    border: 1.5px solid #0D1F3C;
     border-radius: 8px;
     padding: 10px;
     font-size: 12px;
     font-weight: 700;
-    color: rgba(13,33,55,0.6);
+    color: #0D1F3C;
     cursor: pointer;
     font-family: 'Barlow', sans-serif;
     text-transform: uppercase;
@@ -482,12 +491,35 @@
     width: 100%;
     transition: all 0.2s;
   }
-  .btn-restart:hover { background: rgba(13,33,55,0.08); color: var(--navy-deep); }
+  .btn-restart:hover { background: #F5F7FA; }
+
+
+  /* TWO STAGE CTA */
+  .cta-reveal-btn {
+    display: block;
+    width: 100%;
+    background: #0D1F3C;
+    border: none;
+    border-radius: 10px;
+    padding: 16px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 20px;
+    font-weight: 800;
+    color: #FFFFFF;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    margin-bottom: 12px;
+    transition: all 0.2s;
+  }
+  .cta-reveal-btn:hover { background: #1B3A6B; }
+  .form-reveal { display: none; }
+  .form-reveal.open { display: block; }
 
   /* TRUST STRIP */
   .trust-strip {
-    background: var(--navy-input);
-    border-top: 1px solid var(--border);
+    background: var(--navy-deep);
+    border-top: 1px solid rgba(255,255,255,0.08);
     padding: 12px 20px;
     display: flex;
     flex-wrap: wrap;
@@ -497,7 +529,7 @@
   .trust-item {
     font-size: 11px;
     font-weight: 700;
-    color: var(--blue-dim);
+    color: rgba(255,255,255,0.4);
     text-transform: uppercase;
     letter-spacing: 0.5px;
     display: flex;
@@ -510,7 +542,7 @@
   .section {
     max-width: 640px;
     margin: 0 auto;
-    padding: 0 16px 40px;
+    padding: 0 16px 28px;
   }
   .section-eyebrow {
     font-size: 10px;
@@ -522,7 +554,7 @@
   }
   .section-title {
     font-family: 'Barlow Condensed', sans-serif;
-    font-size: 28px;
+    font-size: clamp(22px, 5vw, 28px);
     font-weight: 800;
     color: var(--white);
     text-transform: uppercase;
@@ -530,7 +562,7 @@
   }
   .section-sub {
     font-size: 13px;
-    color: var(--blue-muted);
+    color: #6B8299;
     margin-bottom: 18px;
   }
 
@@ -563,7 +595,7 @@
   }
   .pt-row:nth-child(odd) { background: var(--navy-card); }
   .pt-row:last-child { border-bottom: none; }
-  .pt-system { font-weight: 700; color: var(--white); }
+  .pt-system { font-weight: 700; color: #0D1F3C; }
   .pt-range { color: var(--blue-muted); font-weight: 600; }
   .pt-badge {
     display: inline-block;
@@ -586,10 +618,10 @@
     gap: 12px;
   }
   .review-card {
-    background: var(--navy-card);
-    border: 1px solid var(--border);
+    background: var(--navy-mid);
+    border: 1px solid rgba(255,255,255,0.06);
     border-radius: 12px;
-    padding: 18px 16px;
+    padding: 16px;
   }
   .review-stars {
     color: var(--orange);
@@ -614,21 +646,22 @@
 
   /* ── FAQ ── */
   .faq-list {
-    border: 1px solid var(--border);
+    border: 1px solid #E2EAF2;
     border-radius: 14px;
     overflow: hidden;
+    background: #FFFFFF;
   }
-  .faq-item { border-bottom: 1px solid var(--border); }
+  .faq-item { border-bottom: 1px solid #E2EAF2; }
   .faq-item:last-child { border-bottom: none; }
   .faq-q {
     width: 100%;
-    background: var(--navy-mid);
+    background: #FFFFFF;
     border: none;
-    padding: 15px 18px;
+    padding: 14px 16px;
     text-align: left;
     font-size: 13px;
     font-weight: 700;
-    color: var(--white);
+    color: #0D1F3C;
     font-family: 'Barlow', sans-serif;
     cursor: pointer;
     display: flex;
@@ -637,8 +670,8 @@
     gap: 12px;
     transition: background 0.15s;
   }
-  .faq-q:hover { background: var(--navy-card); }
-  .faq-q.open { color: var(--orange); }
+  .faq-q:hover { background: #F5F7FA; }
+  .faq-q.open { color: #FF6B35; }
   .faq-icon {
     font-size: 18px;
     color: var(--orange);
@@ -649,11 +682,11 @@
   .faq-q.open .faq-icon { transform: rotate(45deg); }
   .faq-a {
     display: none;
-    padding: 0 18px 14px;
+    padding: 0 16px 14px;
     font-size: 13px;
-    color: var(--blue-muted);
+    color: #6B8299;
     line-height: 1.75;
-    background: var(--navy-card);
+    background: #F5F7FA;
   }
   .faq-a.open { display: block; }
 
@@ -707,17 +740,22 @@
   .footer a { color: var(--blue-dim); text-decoration: underline; }
 
   /* SECTION DIVIDER */
-  .section-divider {
-    height: 1px;
-    background: var(--border);
-    max-width: 640px;
-    margin: 0 auto 40px;
-  }
+  .section-divider { display: none; }
 
   @media (max-width: 480px) {
     .options.g2 { grid-template-columns: 1fr; }
-    .pt-header, .pt-row { grid-template-columns: 1.2fr 1fr 0.7fr; font-size: 11px; padding: 10px 12px; }
     .nav-btn { display: none; }
+    .calc-body { padding: 18px 14px; }
+    .result-panel { padding: 18px 14px; }
+    .result-cta-box { padding: 14px; }
+    .hero { padding: 24px 14px 0; }
+    .hero h1 { font-size: 28px; }
+    .section { padding: 0 14px 20px; }
+    .reviews-grid { grid-template-columns: 1fr; }
+    .area-pills { gap: 5px; }
+    .area-pill { padding: 4px 10px; font-size: 11px; }
+    .trust-strip { gap: 4px 12px; padding: 10px 14px; }
+    .trust-item { font-size: 10px; }
   }
 </style>
 </head>
@@ -729,7 +767,7 @@
   <button class="nav-btn" onclick="document.getElementById('reviews').scrollIntoView({behavior:'smooth'})">Reviews ↓</button>
   <button class="nav-btn" onclick="document.getElementById('faq').scrollIntoView({behavior:'smooth'})">Questions ↓</button>
   <button class="nav-btn" onclick="document.getElementById('calc-top').scrollIntoView({behavior:'smooth'})">Get Estimate ↑</button>
-  <a href="tel:4255957972" class="nav-phone">📞 Call</a>
+  <a href="tel:4255957972" class="nav-phone">Call</a>
 </nav>
 
 <!-- HERO -->
@@ -857,7 +895,7 @@
 
     <!-- RESULT PANEL -->
     <div class="result-panel" id="result-panel">
-      <div class="result-eyebrow">Your Snohomish County Estimate — 2026</div>
+      <div class="result-eyebrow" id="result-eyebrow">Your Snohomish County Estimate — 2026</div>
       <div class="result-system" id="result-system"></div>
       <div class="result-range" id="result-range"></div>
       <div class="result-local" id="result-local"></div>
@@ -865,10 +903,14 @@
       <div class="rebate-note" id="rebate-note" style="display:none"></div>
 
       <div class="result-cta-box">
-        <div class="result-cta-title">Get Your Exact Free Estimate</div>
-        <div class="result-cta-sub">A licensed local pro reaches out same day — no obligation, no spam calls</div>
-        <div class="tally-bg">
-          <iframe id="tally-frame" src="" loading="lazy" width="100%" height="732" frameborder="0" marginheight="0" marginwidth="0" title="AC Calc"></iframe>
+        <div class="result-disclaimer" id="result-disclaimer" style="font-size:12px;color:#6B8299;margin-bottom:12px;line-height:1.6;"></div>
+      <button class="cta-reveal-btn" onclick="revealForm(this)">Get My Free Estimate →</button>
+        <div class="form-reveal" id="form-reveal">
+          <div class="result-cta-title">Get Your Exact Free Estimate</div>
+          <div class="result-cta-sub">A licensed local pro reaches out same day — no obligation, no spam calls</div>
+          <div class="tally-bg">
+            <iframe id="tally-frame" src="" loading="lazy" width="100%" height="732" frameborder="0" marginheight="0" marginwidth="0" title="AC Calc"></iframe>
+          </div>
         </div>
         <div class="or-divider">
           <div class="or-line"></div>
@@ -892,27 +934,6 @@
 
   </div>
 </div><!-- /calc-wrap -->
-
-<!-- PRICING TABLE -->
-<div class="section">
-  <div class="section-eyebrow">Snohomish County — 2026</div>
-  <div class="section-title">Pricing Reference Guide</div>
-  <div class="section-sub">Based on recent installations in Mill Creek, Bothell, Lynnwood & surrounding areas</div>
-  <div class="pricing-table">
-    <div class="pt-header"><div>System</div><div>Typical Range</div><div>Best For</div></div>
-    <div class="pt-row"><div class="pt-system">Central AC Replacement</div><div class="pt-range">$4,500–$8,500</div><div><span class="pt-badge badge-val">Existing ducts</span></div></div>
-    <div class="pt-row"><div class="pt-system">Central AC New Install</div><div class="pt-range">$5,500–$10,500</div><div><span class="pt-badge badge-val">Has ductwork</span></div></div>
-    <div class="pt-row"><div class="pt-system">Mini Split — Single Zone</div><div class="pt-range">$3,500–$5,500</div><div><span class="pt-badge badge-hot">Most Popular</span></div></div>
-    <div class="pt-row"><div class="pt-system">Mini Split — 2 Zone</div><div class="pt-range">$6,500–$9,500</div><div><span class="pt-badge badge-val">No ducts needed</span></div></div>
-    <div class="pt-row"><div class="pt-system">Mini Split — 3+ Zone</div><div class="pt-range">$10,500–$22,000+</div><div><span class="pt-badge badge-val">Whole home</span></div></div>
-    <div class="pt-row"><div class="pt-system">Ducted Heat Pump</div><div class="pt-range">$7,000–$14,500</div><div><span class="pt-badge badge-yr">Heats + Cools</span></div></div>
-    <div class="pt-row"><div class="pt-system">Ductless Heat Pump</div><div class="pt-range">$4,000–$17,000</div><div><span class="pt-badge badge-yr">Year-round</span></div></div>
-    <div class="pt-row"><div class="pt-system">+ New Ductwork</div><div class="pt-range">+$2,500–$5,500</div><div><span class="pt-badge badge-val">Add-on cost</span></div></div>
-  </div>
-  <p class="table-note">Estimates reflect typical 2026 Snohomish County installation costs including equipment, labor, and permits. Washington permit fees add $150–$400 depending on your city. Final pricing depends on home-specific conditions.</p>
-</div>
-
-<div class="section-divider"></div>
 
 <!-- REVIEWS -->
 <div class="section" id="reviews">
@@ -938,17 +959,28 @@
   </div>
 </div>
 
-<div class="section-divider"></div>
 
-<!-- FAQ -->
 <div class="section" id="faq">
   <div class="section-eyebrow">Common Questions</div>
   <div class="section-title">AC & Heating FAQ</div>
   <div class="section-sub">Answers specific to Mill Creek & Snohomish County</div>
   <div class="faq-list">
     <div class="faq-item">
-      <button class="faq-q" onclick="toggleFaq(this)">How much does AC installation cost in Mill Creek WA?<span class="faq-icon">+</span></button>
-      <div class="faq-a">AC installation in Mill Creek typically runs $4,500–$8,500 for a system replacement and $5,500–$10,500 for a new install in a home with existing ductwork. Homes without existing ducts should consider a ductless mini split, which avoids the $2,500–$5,500 ductwork cost entirely.</div>
+      <button class="faq-q" onclick="toggleFaq(this)">How much does an AC installation typically cost?<span class="faq-icon">+</span></button>
+      <div class="faq-a">
+        <p style="margin-bottom:10px;color:#6B8299;font-size:13px;">Based on recent installations in Greater Snohomish County — 2026 pricing:</p>
+        <table style="width:100%;font-size:12px;border-collapse:collapse;">
+          <tr style="border-bottom:1px solid #E2EAF2"><td style="padding:6px 0;color:#0D1F3C;font-weight:700">Central AC Replacement</td><td style="text-align:right;color:#6B8299">$4,500–$8,500</td></tr>
+          <tr style="border-bottom:1px solid #E2EAF2"><td style="padding:6px 0;color:#0D1F3C;font-weight:700">Central AC New Install</td><td style="text-align:right;color:#6B8299">$5,500–$10,500</td></tr>
+          <tr style="border-bottom:1px solid #E2EAF2"><td style="padding:6px 0;color:#0D1F3C;font-weight:700">Mini Split — Single Zone</td><td style="text-align:right;color:#6B8299">$3,500–$5,500</td></tr>
+          <tr style="border-bottom:1px solid #E2EAF2"><td style="padding:6px 0;color:#0D1F3C;font-weight:700">Mini Split — 2 Zone</td><td style="text-align:right;color:#6B8299">$6,500–$9,500</td></tr>
+          <tr style="border-bottom:1px solid #E2EAF2"><td style="padding:6px 0;color:#0D1F3C;font-weight:700">Mini Split — 3+ Zone</td><td style="text-align:right;color:#6B8299">$10,500–$22,000+</td></tr>
+          <tr style="border-bottom:1px solid #E2EAF2"><td style="padding:6px 0;color:#0D1F3C;font-weight:700">Ducted Heat Pump</td><td style="text-align:right;color:#6B8299">$7,000–$14,500</td></tr>
+          <tr style="border-bottom:1px solid #E2EAF2"><td style="padding:6px 0;color:#0D1F3C;font-weight:700">Ductless Heat Pump</td><td style="text-align:right;color:#6B8299">$4,000–$17,000</td></tr>
+          <tr><td style="padding:6px 0;color:#0D1F3C;font-weight:700">+ New Ductwork</td><td style="text-align:right;color:#6B8299">+$2,500–$5,500</td></tr>
+        </table>
+        <p style="font-size:11px;color:#9BB0C4;margin-top:8px">Includes equipment, labor, and permits. Add $150–$400 for permit fees. Final pricing depends on home conditions.</p>
+      </div>
     </div>
     <div class="faq-item">
       <button class="faq-q" onclick="toggleFaq(this)">How much does a ductless mini split cost in Snohomish County?<span class="faq-icon">+</span></button>
@@ -956,35 +988,35 @@
     </div>
     <div class="faq-item">
       <button class="faq-q" onclick="toggleFaq(this)">Does my home need ductwork for AC?<span class="faq-icon">+</span></button>
-      <div class="faq-a">Many older homes in Mill Creek and Snohomish County were built without ductwork — especially split-level and rambler-style homes common in this area. If no ducts exist, a ductless mini split is usually the most cost-effective path. If ducts exist but need work, budget an additional $2,500–$5,500.</div>
+      <div class="faq-a">Many older homes in Snohomish County were built without ductwork. If no ducts exist, a ductless mini split is usually the most cost-effective path. If ducts exist but need work, budget an additional $2,500–$5,500.</div>
     </div>
     <div class="faq-item">
       <button class="faq-q" onclick="toggleFaq(this)">What's the difference between a heat pump and central AC?<span class="faq-icon">+</span></button>
-      <div class="faq-a">Central AC only cools your home. A heat pump both cools in summer and heats in winter — effectively replacing your furnace and AC in one system. In the Pacific Northwest climate, heat pumps are increasingly popular for their year-round efficiency and eligibility for utility rebates from Snohomish PUD and PSE.</div>
+      <div class="faq-a">Central AC only cools. A heat pump both cools and heats — replacing your furnace and AC in one system. In the Pacific Northwest, heat pumps are popular for year-round efficiency and utility rebate eligibility.</div>
     </div>
     <div class="faq-item">
       <button class="faq-q" onclick="toggleFaq(this)">Are there rebates for heat pump installation in Snohomish County?<span class="faq-icon">+</span></button>
-      <div class="faq-a">Yes. Snohomish County PUD and Puget Sound Energy both offer rebates on qualifying heat pump installations — typically $500–$1,500 depending on the system and your utility provider. Federal tax credits may also apply. Ask your pro about current programs before purchasing.</div>
+      <div class="faq-a">Yes. Snohomish County PUD and PSE both offer rebates on qualifying heat pumps — typically $500–$1,500. Federal tax credits may also apply. Ask your pro about current programs.</div>
     </div>
     <div class="faq-item">
       <button class="faq-q" onclick="toggleFaq(this)">How much does central air cost for a 2,000 sqft home in Snohomish County?<span class="faq-icon">+</span></button>
-      <div class="faq-a">For a 1,500–2,500 sqft home in Snohomish County, expect $5,500–$8,500 for a central AC replacement, or $7,000–$10,500 for a new install where ductwork already exists. Add $2,500–$5,500 if new ductwork is needed.</div>
+      <div class="faq-a">For a 1,500–2,500 sqft home expect $5,500–$8,500 for a replacement, or $7,000–$10,500 for a new install with existing ductwork. Add $2,500–$5,500 if new ductwork is needed.</div>
     </div>
     <div class="faq-item">
       <button class="faq-q" onclick="toggleFaq(this)">How long does AC installation take?<span class="faq-icon">+</span></button>
-      <div class="faq-a">Most standard AC installations in Mill Creek are completed in one day — typically 4–8 hours. Jobs requiring new ductwork may take 2–3 days. Your technician will give you a realistic timeframe after the free in-home estimate.</div>
+      <div class="faq-a">Most standard installations are completed in one day — 4–8 hours. Jobs requiring new ductwork may take 2–3 days.</div>
     </div>
     <div class="faq-item">
       <button class="faq-q" onclick="toggleFaq(this)">Is a permit required for AC installation in Washington State?<span class="faq-icon">+</span></button>
-      <div class="faq-a">Yes. Most AC and heat pump installations in Washington State require a permit, which your licensed contractor pulls on your behalf. Permit fees in Snohomish County typically run $150–$400 depending on your city. This ensures the work is inspected and up to code.</div>
+      <div class="faq-a">Yes — most AC and heat pump installs in Washington State require a permit. Your licensed contractor pulls it on your behalf. Typical permit fees run $150–$400 in Snohomish County.</div>
     </div>
     <div class="faq-item">
       <button class="faq-q" onclick="toggleFaq(this)">What size AC unit do I need?<span class="faq-icon">+</span></button>
-      <div class="faq-a">AC sizing depends on your home's square footage, ceiling height, insulation, and sun exposure. A licensed technician will perform a Manual J load calculation during the estimate to recommend the correct size. Both oversized and undersized systems cause efficiency and comfort problems.</div>
+      <div class="faq-a">Sizing depends on square footage, ceiling height, insulation, and sun exposure. A technician will perform a load calculation during your free estimate. Both oversized and undersized systems cause problems.</div>
     </div>
     <div class="faq-item">
       <button class="faq-q" onclick="toggleFaq(this)">What brands do local pros install?<span class="faq-icon">+</span></button>
-      <div class="faq-a">Most HVAC professionals in Snohomish County work with major brands including Carrier, Trane, Lennox, Rheem, and Mitsubishi for ductless systems. Your technician will walk you through options that fit your home, budget, and energy goals during the free estimate.</div>
+      <div class="faq-a">Most local pros work with Carrier, Trane, Lennox, Rheem, and Mitsubishi for ductless systems. Your technician will walk you through options during the free estimate.</div>
     </div>
   </div>
 </div>
@@ -1170,9 +1202,11 @@ function showResult(){
   for(let i=1;i<=4;i++) document.getElementById('seg-'+i).className='prog-seg done';
   document.getElementById('prog-label').textContent='Your estimate';
 
-  document.getElementById('result-system').textContent=state.systemLabel+' — '+state.sizeLabel+' — '+state.city;
+  document.getElementById('result-eyebrow').textContent='YOUR '+state.city.toUpperCase()+' ESTIMATE — 2026';
+  document.getElementById('result-system').textContent=state.systemLabel+' — '+state.sizeLabel;
   document.getElementById('result-range').textContent=fmt(range[0])+' – '+fmt(range[1]);
-  document.getElementById('result-local').textContent='Based on recent installations in '+state.city+' and surrounding Snohomish County — 2026 pricing. Final cost depends on equipment brand, site conditions, and permit fees ($150–$400).';
+  document.getElementById('result-local').textContent='Based on recent installations in Greater Snohomish County — 2026 pricing.';
+  document.getElementById('result-disclaimer').textContent='Final cost depends on equipment brand, site conditions, and permit fees ($150–$400).';
 
   let bdHtml='<div class="bd-title">What\'s typically included</div>';
   breakdown.forEach(r=>{ bdHtml+=`<div class="bd-row"><span>${r[0]}</span><span>${r[1]}</span></div>`; });
@@ -1187,7 +1221,7 @@ function showResult(){
   // Wire Tally with hidden field parameters
   const params=new URLSearchParams({
     alignLeft:'1', hideTitle:'1', transparentBackground:'1', dynamicHeight:'1',
-    system: state.systemLabel,
+    system_type: state.systemLabel,
     size: state.sizeLabel,
     job: state.jobLabel,
     city: state.city,
@@ -1209,6 +1243,13 @@ function restartCalc(){
   document.getElementById('tally-frame').src='';
   goToStep(1);
   document.getElementById('step-1').classList.add('active');
+}
+
+function revealForm(btn){
+  btn.style.display='none';
+  const reveal=document.getElementById('form-reveal');
+  reveal.classList.add('open');
+  reveal.scrollIntoView({behavior:'smooth',block:'start'});
 }
 
 function toggleFaq(btn){
