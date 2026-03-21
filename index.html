@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Coolng & Heating Installation Calculator — Mill Creek & Snohomish County 2026</title>
+<title>Heating & Cooling Cost Calculator — Mill Creek & Snohomish County 2026</title>
 
 <meta name="description" content="Free interactive heating and cooling cost calculator for Mill Creek, Bothell, Lynnwood & Snohomish County. Get instant 2026 pricing for AC installation, heat pump, mini split & furnace replacement.">
 <meta name="keywords" content="AC cost calculator Mill Creek, heating cooling cost Snohomish County, how much does AC installation cost Mill Creek, heat pump cost Bothell, mini split cost Lynnwood, furnace installation cost Snohomish County, central air cost Mill Creek WA, ductless heat pump cost 2026">
@@ -758,6 +758,14 @@
     .trust-item { font-size: 10px; }
   }
 </style>
+<!-- Google Ads Tag -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-17039190320"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'AW-17039190320');
+</script>
 </head>
 <body>
 
@@ -1161,7 +1169,16 @@ function goToStep(n){
     s.className='prog-seg'+(i<n?' done':i===n?' active':'');
   }
   document.getElementById('prog-label').textContent='Step '+n+' of 4';
-  if(n===2) buildStep2();
+  if(n===2){
+    buildStep2();
+    gtag('event','calc_step1_complete',{send_to:'AW-17039190320',system:state.systemLabel});
+  }
+  if(n===3){
+    gtag('event','calc_step2_complete',{send_to:'AW-17039190320',size:state.sizeLabel});
+  }
+  if(n===4){
+    gtag('event','calc_step3_complete',{send_to:'AW-17039190320',job:state.jobLabel});
+  }
   document.getElementById('step-'+n).classList.add('active');
 }
 
@@ -1230,6 +1247,17 @@ function showResult(){
 
   document.getElementById('result-panel').classList.add('active');
   document.querySelector('.calc-card').scrollIntoView({behavior:'smooth',block:'start'});
+
+  // Track step 4 complete and result shown
+  gtag('event','calc_step4_complete',{send_to:'AW-17039190320',city:state.city});
+  gtag('event','calc_result_shown',{
+    send_to:'AW-17039190320',
+    system:state.systemLabel,
+    size:state.sizeLabel,
+    job:state.jobLabel,
+    city:state.city,
+    range:fmt(range[0])+' – '+fmt(range[1])
+  });
 }
 
 function restartCalc(){
@@ -1249,7 +1277,21 @@ function revealForm(btn){
   const reveal=document.getElementById('form-reveal');
   reveal.classList.add('open');
   reveal.scrollIntoView({behavior:'smooth',block:'start'});
+
+  // Track form reveal
+  gtag('event','calc_form_revealed',{send_to:'AW-17039190320'});
 }
+
+// Track Tally form submission via postMessage
+window.addEventListener('message',function(e){
+  if(typeof e.data==='string' && e.data.includes('tally-form-confirmed')){
+    gtag('event','conversion',{
+      send_to:'AW-17039190320',
+      event_category:'Calculator',
+      event_label:'Tally Form Submitted'
+    });
+  }
+});
 
 function toggleFaq(btn){
   const a=btn.nextElementSibling;
