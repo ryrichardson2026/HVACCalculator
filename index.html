@@ -443,6 +443,8 @@
     border-radius: 8px;
     padding: 12px;
     margin-bottom: 14px;
+    max-height: 460px;
+    overflow: hidden;
   }
   .or-divider {
     display: flex;
@@ -493,6 +495,37 @@
   }
   .btn-restart:hover { background: #F5F7FA; }
 
+
+  .value-bullets {
+    background: rgba(13,31,60,0.04);
+    border: 1px solid #E2EAF2;
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin-bottom: 16px;
+  }
+  .value-bullet {
+    font-size: 12px;
+    font-weight: 600;
+    color: #0D1F3C;
+    padding: 4px 0;
+    line-height: 1.5;
+  }
+  .value-bullet + .value-bullet {
+    border-top: 1px solid #E2EAF2;
+  }
+  .trust-signals {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 16px;
+    justify-content: center;
+    margin-top: 10px;
+  }
+  .trust-signals span {
+    font-size: 11px;
+    font-weight: 600;
+    color: #6B8299;
+    text-align: center;
+  }
 
   /* TWO STAGE CTA */
   .cta-reveal-btn {
@@ -781,8 +814,8 @@
 <!-- HERO -->
 <div class="hero" id="calc-top">
   <div class="hero-eyebrow"><div class="pulse"></div>2026 Local Pricing — Snohomish County</div>
-  <h1>Cooling & Heating<br><span>Installation Calculator</span></h1>
-  <p class="hero-sub">See what cooling and heating installation costs in your neighborhood — Instant estimates for every city across Snohomish County</p>
+  <h1>Thinking About<br><span>Adding AC to Your Home?</span></h1>
+  <p class="hero-sub">See what installation costs in your neighborhood — instant estimates for every city across Snohomish County.</p>
 </div>
 
 <!-- CALCULATOR -->
@@ -811,15 +844,19 @@
           </button>
           <button class="opt" onclick="selectOpt(this,1,'mini-split','Ductless Mini Split')">
             <div class="opt-icon">🌬️</div>
-            <div><div class="opt-label">Ductless Mini Split</div><div class="opt-sub">No ductwork — 1 to 5 zones</div></div>
-          </button>
-          <button class="opt" onclick="selectOpt(this,1,'heat-pump-ducted','Heat Pump — Ducted')">
-            <div class="opt-icon">♨️</div>
-            <div><div class="opt-label">Heat Pump — Ducted</div><div class="opt-sub">Heats & cools — replaces furnace + AC</div></div>
+            <div><div class="opt-label">Ductless Mini Split</div><div class="opt-sub">Cooling only — no ductwork needed</div></div>
           </button>
           <button class="opt" onclick="selectOpt(this,1,'heat-pump-ductless','Ductless Heat Pump')">
             <div class="opt-icon">🔄</div>
-            <div><div class="opt-label">Ductless Heat Pump</div><div class="opt-sub">Year-round comfort — no ducts required</div></div>
+            <div><div class="opt-label">Ductless Heat Pump</div><div class="opt-sub">Heats AND cools — no ductwork needed</div></div>
+          </button>
+          <button class="opt" onclick="selectOpt(this,1,'heat-pump-ducted','Heat Pump — Ducted')">
+            <div class="opt-icon">♨️</div>
+            <div><div class="opt-label">Ducted Heat Pump</div><div class="opt-sub">Heats & cools — replaces furnace + AC</div></div>
+          </button>
+          <button class="opt" onclick="selectOpt(this,1,'not-sure','Not Sure Yet')">
+            <div class="opt-icon">🤔</div>
+            <div><div class="opt-label">Not Sure Yet</div><div class="opt-sub">Help me understand my options and costs</div></div>
           </button>
         </div>
         <div class="calc-nav">
@@ -912,20 +949,30 @@
 
       <div class="result-cta-box">
         <div class="result-disclaimer" id="result-disclaimer" style="font-size:12px;color:#6B8299;margin-bottom:12px;line-height:1.6;"></div>
-      <button class="cta-reveal-btn" onclick="revealForm(this)">Questions? Talk to a Local Pro →</button>
+      <div class="value-bullets">
+        <div class="value-bullet">💡 Spring is peak AC season — lock in before demand spikes</div>
+        <div class="value-bullet">📅 AC installs in Mill Creek booking 2–3 weeks out</div>
+        <div class="value-bullet">⏱️ Most installations completed in one day</div>
+      </div>
+      <div style="font-size:13px;font-weight:700;color:#0D1F3C;margin-bottom:10px;">Need an exact estimate?</div>
+      <button class="cta-reveal-btn" onclick="revealForm(this)">Talk to a Local Expert →</button>
         <div class="form-reveal" id="form-reveal">
           <div class="result-cta-title">Get Your Exact Free Estimate</div>
           <div class="result-cta-sub">A licensed local pro reaches out same day — no obligation, no spam calls</div>
           <div class="tally-bg">
-            <iframe id="tally-frame" src="" loading="lazy" width="100%" height="732" frameborder="0" marginheight="0" marginwidth="0" title="AC Calc"></iframe>
+            <iframe id="tally-frame" src="" loading="lazy" width="100%" height="420" frameborder="0" marginheight="0" marginwidth="0" scrolling="yes" title="AC Calc" style="max-height:420px;overflow:auto"></iframe>
           </div>
         </div>
-        <div class="or-divider">
-          <div class="or-line"></div>
-          <div class="or-text">Or just call us</div>
-          <div class="or-line"></div>
+
+        <div class="trust-signals">
+          <span>🔒 Licensed, insured & bonded</span>
+          <span style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center;">
+            <span style="color:#3B8A3E;font-weight:700">✅ Free Estimate</span>
+            <span style="color:#3B8A3E;font-weight:700">✅ No Obligation</span>
+            <span style="color:#3B8A3E;font-weight:700">✅ No Spam Calls</span>
+          </span>
         </div>
-        <a href="tel:4255957972" style="display:block;text-align:center;font-size:14px;font-weight:700;color:#0D1F3C;text-decoration:none;padding:8px 0;letter-spacing:0.3px;">425.595.7972</a>
+
       </div>
 
       <button class="btn-restart" onclick="restartCalc()">← Start over with different selections</button>
@@ -1063,6 +1110,29 @@
 const state = { system:null, systemLabel:null, size:null, sizeLabel:null, job:null, jobLabel:null, city:null };
 
 const pricing = {
+  'not-sure': {
+    step2q:'What size is your home?',step2hint:'We\'ll show you the most relevant options',
+    sizes:[
+      {id:'u1500',label:'Under 1,500 sqft',sub:'Smaller home'},
+      {id:'1500-2500',label:'1,500 – 2,500 sqft',sub:'Average Snohomish home'},
+      {id:'2500-3500',label:'2,500 – 3,500 sqft',sub:'Larger family home'},
+      {id:'o3500',label:'Over 3,500 sqft',sub:'Large or custom home'},
+    ],
+    ranges:{
+      'u1500':    {replacement:[3500,8000],'new-with-ducts':[3500,8000],'new-no-ducts':[3500,8000],'not-sure':[3500,8000]},
+      '1500-2500':{replacement:[5500,10500],'new-with-ducts':[5500,10500],'new-no-ducts':[5500,10500],'not-sure':[5500,10500]},
+      '2500-3500':{replacement:[9500,18500],'new-with-ducts':[9500,18500],'new-no-ducts':[9500,18500],'not-sure':[9500,18500]},
+      'o3500':    {replacement:[15000,24000],'new-with-ducts':[15000,24000],'new-no-ducts':[15000,24000],'not-sure':[15000,24000]},
+    },
+    breakdown:{
+      replacement:[['Equipment','$2,000–$5,000'],['Labor','$1,500–$3,500'],['Permits','$150–$400']],
+      'new-with-ducts':[['Equipment','$2,000–$5,000'],['Labor','$1,500–$3,500'],['Permits','$150–$400']],
+      'new-no-ducts':[['Equipment','$2,000–$5,000'],['Labor','$1,500–$3,500'],['Permits','$150–$400']],
+      'not-sure':[['Equipment','$2,000–$5,000'],['Labor','$1,500–$3,500'],['Permits','$150–$400']],
+    },
+    rebate:false,
+    notSure:true,
+  },
   'central-ac': {
     sizes:[
       {id:'u1500',label:'Under 1,500 sqft',sub:'Smaller home'},
@@ -1221,7 +1291,10 @@ function showResult(){
   document.getElementById('result-eyebrow').textContent='YOUR '+state.city.toUpperCase()+' ESTIMATE — 2026';
   document.getElementById('result-system').textContent=state.systemLabel+' — '+state.sizeLabel;
   document.getElementById('result-range').textContent=fmt(range[0])+' – '+fmt(range[1]);
-  document.getElementById('result-local').textContent='Based on recent installations in Greater Snohomish County — 2026 pricing.';
+  const isNotSure = state.system === 'not-sure';
+  document.getElementById('result-local').textContent = isNotSure
+    ? 'Estimated range based on typical installations in Greater Snohomish County — 2026 pricing. A local pro can recommend the best system for your home.'
+    : 'Based on recent installations in Greater Snohomish County — 2026 pricing.';
   document.getElementById('result-disclaimer').textContent='Final cost depends on equipment brand, site conditions, and permit fees ($150–$400).';
 
   let bdHtml='<div class="bd-title">What\'s typically included</div>';
@@ -1236,7 +1309,7 @@ function showResult(){
 
   // Wire Tally with hidden field parameters
   const params=new URLSearchParams({
-    alignLeft:'1', hideTitle:'1', transparentBackground:'1', dynamicHeight:'1',
+    alignLeft:'1', hideTitle:'1', transparentBackground:'1',
     system_type: state.systemLabel,
     size: state.sizeLabel,
     job: state.jobLabel,
