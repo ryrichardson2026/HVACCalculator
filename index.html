@@ -792,6 +792,26 @@
     .trust-item { font-size: 10px; }
   }
 
+
+  /* CONDITIONAL DUCT QUESTION */
+  .duct-question {
+    display: none;
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid #E2EAF2;
+  }
+  .duct-question.active { display: block; }
+  .duct-label {
+    font-size: 13px;
+    font-weight: 700;
+    color: #0D1F3C;
+    margin-bottom: 6px;
+  }
+  .duct-hint {
+    font-size: 12px;
+    color: #6B8299;
+    margin-bottom: 12px;
+  }
   /* LOADING OVERLAY */
   .loading-overlay {
     display: none;
@@ -932,28 +952,45 @@
     </div>
   </div>
 
-  <!-- STEP 3: Job type -->
+  <!-- STEP 3: Replacement or New -->
   <div class="step-panel" id="step-3">
-    <div class="step-q">New or replacement?</div>
-    <div class="step-hint">This affects equipment and labor costs</div>
+    <div class="step-q">Replacement or new system?</div>
+    <div class="step-hint">Helps us show the most accurate cost range</div>
     <div class="options g1">
-      <button class="opt" onclick="selectOpt(this,3,'replacement','Replacing existing system')">
+      <button class="opt" onclick="selectJobType(this,'replacement','Replacement or upgrade')">
         <div class="opt-icon">🔄</div>
-        <div><div class="opt-label">Replacing existing system</div><div class="opt-sub">Existing ducts — swapping old equipment</div></div>
+        <div><div class="opt-label">Replacement or upgrade</div><div class="opt-sub">I have an existing system</div></div>
       </button>
-      <button class="opt" onclick="selectOpt(this,3,'new-with-ducts','New install — ducts exist')">
-        <div class="opt-icon">🏠</div>
-        <div><div class="opt-label">New install — ducts already exist</div><div class="opt-sub">Adding cooling to a home with existing ductwork</div></div>
+      <button class="opt" onclick="selectJobType(this,'new','New system')">
+        <div class="opt-icon">✨</div>
+        <div><div class="opt-label">New system</div><div class="opt-sub">First time adding cooling to this home</div></div>
       </button>
-      <button class="opt" onclick="selectOpt(this,3,'new-no-ducts','New install — no ducts')">
-        <div class="opt-icon">🔧</div>
-        <div><div class="opt-label">New install — no existing ductwork</div><div class="opt-sub">Common in older Snohomish County homes</div></div>
-      </button>
-      <button class="opt" onclick="selectOpt(this,3,'not-sure','Not sure')">
+      <button class="opt" onclick="selectJobType(this,'not-sure','Not sure')">
         <div class="opt-icon">🤔</div>
         <div><div class="opt-label">Not sure</div><div class="opt-sub">A pro can assess during the free estimate</div></div>
       </button>
     </div>
+
+    <!-- CONDITIONAL DUCT QUESTION — ducted systems + new only -->
+    <div class="duct-question" id="duct-question">
+      <div class="duct-label">Does your home have existing ductwork?</div>
+      <div class="duct-hint">Central AC and ducted heat pumps connect to your home's duct system</div>
+      <div class="options g1">
+        <button class="opt duct-opt" onclick="selectDuct(this,'new-with-ducts','Yes — existing ductwork')">
+          <div class="opt-icon">✅</div>
+          <div><div class="opt-label">Yes — I have vents and ducts</div><div class="opt-sub">System connects to existing ductwork</div></div>
+        </button>
+        <button class="opt duct-opt" onclick="selectDuct(this,'new-no-ducts','No — no existing ductwork')">
+          <div class="opt-icon">❌</div>
+          <div><div class="opt-label">No — no existing ductwork</div><div class="opt-sub">Adds $2,500–$5,500 for duct installation</div></div>
+        </button>
+        <button class="opt duct-opt" onclick="selectDuct(this,'new-not-sure','Not sure about ductwork')">
+          <div class="opt-icon">🤔</div>
+          <div><div class="opt-label">Not sure about ductwork</div><div class="opt-sub">A pro can check during the free estimate</div></div>
+        </button>
+      </div>
+    </div>
+
     <div class="calc-nav">
       <button class="btn-back" onclick="goToStep(2)">← Back</button>
       <button class="btn-next" id="next-3" disabled onclick="goToStep(4)">Next →</button>
@@ -1201,14 +1238,15 @@ const pricing = {
       {id:'o3500',label:'Over 3,500 sqft',sub:'Large or custom home'},
     ],
     ranges:{
-      'u1500':    {replacement:[4500,6500],'new-with-ducts':[5500,8000],'new-no-ducts':[8000,12000],'not-sure':[4500,8000]},
-      '1500-2500':{replacement:[5500,8500],'new-with-ducts':[7000,10500],'new-no-ducts':[9500,15000],'not-sure':[5500,10500]},
-      '2500-3500':{replacement:[7500,11500],'new-with-ducts':[9500,14000],'new-no-ducts':[12000,18500],'not-sure':[7500,14000]},
-      'o3500':    {replacement:[10000,15000],'new-with-ducts':[13000,18500],'new-no-ducts':[15500,23000],'not-sure':[10000,18500]},
+      'u1500':    {replacement:[4500,6500],'new-with-ducts':[5500,8000],'new-not-sure':[6500,10000],'new-no-ducts':[8000,12000],'not-sure':[4500,8000]},
+      '1500-2500':{replacement:[5500,8500],'new-with-ducts':[7000,10500],'new-not-sure':[8500,12500],'new-no-ducts':[9500,15000],'not-sure':[5500,10500]},
+      '2500-3500':{replacement:[7500,11500],'new-with-ducts':[9500,14000],'new-not-sure':[11000,16000],'new-no-ducts':[12000,18500],'not-sure':[7500,14000]},
+      'o3500':    {replacement:[10000,15000],'new-with-ducts':[13000,18500],'new-not-sure':[14500,21000],'new-no-ducts':[15500,23000],'not-sure':[10000,18500]},
     },
     breakdown:{
       replacement:[['Equipment','$2,500–$4,500'],['Labor','$1,500–$2,500'],['Permits','$150–$400']],
       'new-with-ducts':[['Equipment','$2,500–$4,500'],['Labor','$2,000–$3,500'],['Duct modifications','$500–$1,500'],['Permits','$150–$400']],
+      'new-not-sure':[['Equipment','$2,500–$4,500'],['Labor','$2,000–$3,500'],['Ductwork (if needed)','$0–$5,500'],['Permits','$150–$400']],
       'new-no-ducts':[['Equipment','$2,500–$4,500'],['Labor','$2,000–$3,500'],['New ductwork','$2,500–$5,500'],['Permits','$150–$400']],
       'not-sure':[['Equipment','$2,500–$4,500'],['Labor','$1,500–$3,500'],['Permits + misc','$300–$800']],
     },
@@ -1244,10 +1282,10 @@ const pricing = {
       {id:'o3500',label:'Over 3,500 sqft',sub:'Large home'},
     ],
     ranges:{
-      'u1500':    {replacement:[7000,11000],'new-with-ducts':[8000,12500],'new-no-ducts':[10500,17000],'not-sure':[7000,12500]},
-      '1500-2500':{replacement:[9500,14500],'new-with-ducts':[11000,16000],'new-no-ducts':[13500,21000],'not-sure':[9500,16000]},
-      '2500-3500':{replacement:[13000,18500],'new-with-ducts':[14500,21000],'new-no-ducts':[17000,25500],'not-sure':[13000,21000]},
-      'o3500':    {replacement:[17000,24000],'new-with-ducts':[19000,27000],'new-no-ducts':[21500,31000],'not-sure':[17000,27000]},
+      'u1500':    {replacement:[7000,11000],'new-with-ducts':[8000,12500],'new-not-sure':[9000,14500],'new-no-ducts':[10500,17000],'not-sure':[7000,12500]},
+      '1500-2500':{replacement:[9500,14500],'new-with-ducts':[11000,16000],'new-not-sure':[12000,18500],'new-no-ducts':[13500,21000],'not-sure':[9500,16000]},
+      '2500-3500':{replacement:[13000,18500],'new-with-ducts':[14500,21000],'new-not-sure':[15500,23000],'new-no-ducts':[17000,25500],'not-sure':[13000,21000]},
+      'o3500':    {replacement:[17000,24000],'new-with-ducts':[19000,27000],'new-not-sure':[20000,29000],'new-no-ducts':[21500,31000],'not-sure':[17000,27000]},
     },
     breakdown:{
       replacement:[['Heat pump equipment','$3,500–$7,000'],['Labor','$2,500–$4,000'],['Air handler','$1,000–$2,000'],['Permits','$150–$400']],
@@ -1282,6 +1320,36 @@ const pricing = {
 };
 
 function fmt(n){ return '$'+n.toLocaleString(); }
+
+const ductedSystems = ['central-ac','heat-pump-ducted'];
+
+function selectJobType(el, val, label){
+  el.closest('.options').querySelectorAll('.opt:not(.duct-opt)').forEach(o=>o.classList.remove('selected'));
+  el.classList.add('selected');
+  const isDucted = ductedSystems.includes(state.system);
+  const ductQ = document.getElementById('duct-question');
+  if(val === 'new' && isDucted){
+    ductQ.classList.add('active');
+    state.job = null;
+    state.jobLabel = null;
+    document.getElementById('next-3').disabled = true;
+    document.querySelectorAll('.duct-opt').forEach(o=>o.classList.remove('selected'));
+  } else {
+    ductQ.classList.remove('active');
+    document.querySelectorAll('.duct-opt').forEach(o=>o.classList.remove('selected'));
+    state.job = val === 'replacement' ? 'replacement' : 'not-sure';
+    state.jobLabel = label;
+    document.getElementById('next-3').disabled = false;
+  }
+}
+
+function selectDuct(el, val, label){
+  document.querySelectorAll('.duct-opt').forEach(o=>o.classList.remove('selected'));
+  el.classList.add('selected');
+  state.job = val;
+  state.jobLabel = label;
+  document.getElementById('next-3').disabled = false;
+}
 
 function selectOpt(el,step,val,label){
   el.closest('.options').querySelectorAll('.opt').forEach(o=>o.classList.remove('selected'));
@@ -1437,6 +1505,8 @@ function restartCalc(){
   document.getElementById('city-msg').textContent='';
   document.querySelectorAll('.opt').forEach(o=>o.classList.remove('selected'));
   document.getElementById('next-1').disabled=true;
+  document.getElementById('duct-question').classList.remove('active');
+  document.querySelectorAll('.duct-opt').forEach(o=>o.classList.remove('selected'));
   document.getElementById('result-panel').classList.remove('active');
   document.getElementById('tally-frame').src='';
   goToStep(1);
