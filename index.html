@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -790,19 +791,63 @@
     .trust-strip { gap: 4px 12px; padding: 10px 14px; }
     .trust-item { font-size: 10px; }
   }
+
+  /* LOADING OVERLAY */
+  .loading-overlay {
+    display: none;
+    padding: 40px 20px;
+    text-align: center;
+    background: #F5F7FA;
+  }
+  .loading-overlay.active { display: block; }
+  .loading-message {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: #0D1F3C;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 16px;
+  }
+  .loading-bar-track {
+    background: #E2EAF2;
+    border-radius: 4px;
+    height: 6px;
+    width: 100%;
+    max-width: 320px;
+    margin: 0 auto 10px;
+    overflow: hidden;
+  }
+  .loading-bar-fill {
+    height: 100%;
+    width: 0%;
+    border-radius: 4px;
+    transition: width 0.05s linear;
+  }
+  .loading-pct {
+    font-size: 12px;
+    font-weight: 700;
+    color: #6B8299;
+    letter-spacing: 1px;
+  }
 </style>
+
 <!-- Google Ads Tag -->
+
 <script async src="https://www.googletagmanager.com/gtag/js?id=AW-17039190320"></script>
+
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
   gtag('config', 'AW-17039190320');
 </script>
+
 </head>
 <body>
 
 <!-- STICKY NAV -->
+
 <nav class="nav">
   <a href="https://millcreek-hvac.com" class="nav-brand">Mill Creek HVAC</a>
   <button class="nav-btn" onclick="document.getElementById('reviews').scrollIntoView({behavior:'smooth'})">Reviews ↓</button>
@@ -812,6 +857,7 @@
 </nav>
 
 <!-- HERO -->
+
 <div class="hero" id="calc-top">
   <div class="hero-eyebrow"><div class="pulse"></div>2026 Local Pricing — Snohomish County</div>
   <h1>Thinking About<br><span>Adding AC to Your Home?</span></h1>
@@ -819,177 +865,190 @@
 </div>
 
 <!-- CALCULATOR -->
+
 <div class="calc-wrap">
   <div class="calc-card">
 
-    <!-- PROGRESS -->
-    <div class="progress-bar">
-      <div class="prog-seg active" id="seg-1"></div>
-      <div class="prog-seg" id="seg-2"></div>
-      <div class="prog-seg" id="seg-3"></div>
-      <div class="prog-seg" id="seg-4"></div>
-      <div class="prog-label" id="prog-label">Step 1 of 4</div>
+```
+<!-- PROGRESS -->
+<div class="progress-bar">
+  <div class="prog-seg active" id="seg-1"></div>
+  <div class="prog-seg" id="seg-2"></div>
+  <div class="prog-seg" id="seg-3"></div>
+  <div class="prog-seg" id="seg-4"></div>
+  <div class="prog-label" id="prog-label">Step 1 of 4</div>
+</div>
+
+<!-- LOADING OVERLAY -->
+<div class="loading-overlay" id="loading-overlay">
+  <div class="loading-message" id="loading-message"></div>
+  <div class="loading-bar-track">
+    <div class="loading-bar-fill" id="loading-bar-fill"></div>
+  </div>
+  <div class="loading-pct" id="loading-pct">0%</div>
+</div>
+
+<div class="calc-body">
+
+  <!-- STEP 1: System -->
+  <div class="step-panel active" id="step-1">
+    <div class="step-q">What system?</div>
+    <div class="step-hint">Select the type you want installed or replaced</div>
+    <div class="options g1">
+      <button class="opt" onclick="selectOpt(this,1,'central-ac','Central AC — Split System')">
+        <div class="opt-icon">❄️</div>
+        <div><div class="opt-label">Central AC — Split System</div><div class="opt-sub">Ducted whole-home cooling</div></div>
+      </button>
+      <button class="opt" onclick="selectOpt(this,1,'mini-split','Ductless Mini Split')">
+        <div class="opt-icon">🌬️</div>
+        <div><div class="opt-label">Ductless Mini Split</div><div class="opt-sub">Cooling only — no ductwork needed</div></div>
+      </button>
+      <button class="opt" onclick="selectOpt(this,1,'heat-pump-ductless','Ductless Heat Pump')">
+        <div class="opt-icon">🔄</div>
+        <div><div class="opt-label">Ductless Heat Pump</div><div class="opt-sub">Heats AND cools — no ductwork needed</div></div>
+      </button>
+      <button class="opt" onclick="selectOpt(this,1,'heat-pump-ducted','Heat Pump — Ducted')">
+        <div class="opt-icon">♨️</div>
+        <div><div class="opt-label">Ducted Heat Pump</div><div class="opt-sub">Heats & cools — replaces furnace + AC</div></div>
+      </button>
+      <button class="opt" onclick="selectOpt(this,1,'not-sure','Not Sure Yet')">
+        <div class="opt-icon">🤔</div>
+        <div><div class="opt-label">Not Sure Yet</div><div class="opt-sub">Help me understand my options and costs</div></div>
+      </button>
+    </div>
+    <div class="calc-nav">
+      <button class="btn-next" id="next-1" disabled onclick="goToStep(2)">Next →</button>
+    </div>
+  </div>
+
+  <!-- STEP 2: Size/Zones -->
+  <div class="step-panel" id="step-2">
+    <div class="step-q" id="step2-q">Home size?</div>
+    <div class="step-hint" id="step2-hint">Select your approximate square footage</div>
+    <div class="options g2" id="opts-2"></div>
+    <div class="calc-nav">
+      <button class="btn-back" onclick="goToStep(1)">← Back</button>
+      <button class="btn-next" id="next-2" disabled onclick="goToStep(3)">Next →</button>
+    </div>
+  </div>
+
+  <!-- STEP 3: Job type -->
+  <div class="step-panel" id="step-3">
+    <div class="step-q">New or replacement?</div>
+    <div class="step-hint">This affects equipment and labor costs</div>
+    <div class="options g1">
+      <button class="opt" onclick="selectOpt(this,3,'replacement','Replacing existing system')">
+        <div class="opt-icon">🔄</div>
+        <div><div class="opt-label">Replacing existing system</div><div class="opt-sub">Existing ducts — swapping old equipment</div></div>
+      </button>
+      <button class="opt" onclick="selectOpt(this,3,'new-with-ducts','New install — ducts exist')">
+        <div class="opt-icon">🏠</div>
+        <div><div class="opt-label">New install — ducts already exist</div><div class="opt-sub">Adding cooling to a home with existing ductwork</div></div>
+      </button>
+      <button class="opt" onclick="selectOpt(this,3,'new-no-ducts','New install — no ducts')">
+        <div class="opt-icon">🔧</div>
+        <div><div class="opt-label">New install — no existing ductwork</div><div class="opt-sub">Common in older Snohomish County homes</div></div>
+      </button>
+      <button class="opt" onclick="selectOpt(this,3,'not-sure','Not sure')">
+        <div class="opt-icon">🤔</div>
+        <div><div class="opt-label">Not sure</div><div class="opt-sub">A pro can assess during the free estimate</div></div>
+      </button>
+    </div>
+    <div class="calc-nav">
+      <button class="btn-back" onclick="goToStep(2)">← Back</button>
+      <button class="btn-next" id="next-3" disabled onclick="goToStep(4)">Next →</button>
+    </div>
+  </div>
+
+  <!-- STEP 4: City -->
+  <div class="step-panel" id="step-4">
+    <div class="step-q">Your city?</div>
+    <div class="step-hint">Confirms you're in our service area</div>
+    <select class="city-select" id="city-select" onchange="checkCity(this.value)">
+      <option value="">Select your city...</option>
+      <option value="Mill Creek">Mill Creek</option>
+      <option value="Bothell">Bothell</option>
+      <option value="Lynnwood">Lynnwood</option>
+      <option value="Mukilteo">Mukilteo</option>
+      <option value="Kenmore">Kenmore</option>
+      <option value="Mountlake Terrace">Mountlake Terrace</option>
+      <option value="Edmonds">Edmonds</option>
+      <option value="Shoreline">Shoreline</option>
+      <option value="Woodinville">Woodinville</option>
+      <option value="Brier">Brier</option>
+      <option value="Everett">Everett</option>
+      <option value="Marysville">Marysville</option>
+      <option value="Monroe">Monroe</option>
+      <option value="Snohomish">Snohomish</option>
+      <option value="Arlington">Arlington</option>
+      <option value="Lake Stevens">Lake Stevens</option>
+      <option value="Martha Lake">Martha Lake</option>
+      <option value="Maltby">Maltby</option>
+      <option value="Other nearby area">Other nearby area</option>
+    </select>
+    <div id="city-msg" style="font-size:12px;color:var(--blue-muted);margin-top:8px;min-height:18px"></div>
+    <div class="calc-nav">
+      <button class="btn-back" onclick="goToStep(3)">← Back</button>
+      <button class="btn-next" id="next-4" disabled onclick="showResult()">See My Estimate →</button>
+    </div>
+  </div>
+
+</div><!-- /calc-body -->
+
+<!-- RESULT PANEL -->
+<div class="result-panel" id="result-panel">
+  <div class="result-eyebrow" id="result-eyebrow">Your Snohomish County Estimate — 2026</div>
+  <div class="result-system" id="result-system"></div>
+  <div class="result-range" id="result-range"></div>
+  <div class="result-local" id="result-local"></div>
+  <div class="result-breakdown" id="result-breakdown"></div>
+  <div class="rebate-note" id="rebate-note" style="display:none"></div>
+
+  <div class="result-cta-box">
+    <div class="result-disclaimer" id="result-disclaimer" style="font-size:12px;color:#6B8299;margin-bottom:12px;line-height:1.6;"></div>
+  <div class="value-bullets">
+    <div class="value-bullet">💡 Spring is peak AC season — lock in before demand spikes</div>
+    <div class="value-bullet">📅 AC installs in Mill Creek booking 2–3 weeks out</div>
+    <div class="value-bullet">⏱️ Most installations completed in one day</div>
+  </div>
+  <div style="font-size:13px;font-weight:700;color:#0D1F3C;margin-bottom:10px;">Need an exact estimate?</div>
+  <button class="cta-reveal-btn" onclick="revealForm(this)">Talk to a Local Expert →</button>
+    <div class="form-reveal" id="form-reveal">
+      <div class="result-cta-title">Get Your Exact Free Estimate</div>
+      <div class="result-cta-sub">A licensed local pro reaches out same day — no obligation, no spam calls</div>
+      <div class="tally-bg">
+        <iframe id="tally-frame" src="" loading="lazy" width="100%" height="420" frameborder="0" marginheight="0" marginwidth="0" scrolling="yes" title="AC Calc" style="max-height:420px;overflow:auto"></iframe>
+      </div>
     </div>
 
-    <div class="calc-body">
-
-      <!-- STEP 1: System -->
-      <div class="step-panel active" id="step-1">
-        <div class="step-q">What system?</div>
-        <div class="step-hint">Select the type you want installed or replaced</div>
-        <div class="options g1">
-          <button class="opt" onclick="selectOpt(this,1,'central-ac','Central AC — Split System')">
-            <div class="opt-icon">❄️</div>
-            <div><div class="opt-label">Central AC — Split System</div><div class="opt-sub">Ducted whole-home cooling</div></div>
-          </button>
-          <button class="opt" onclick="selectOpt(this,1,'mini-split','Ductless Mini Split')">
-            <div class="opt-icon">🌬️</div>
-            <div><div class="opt-label">Ductless Mini Split</div><div class="opt-sub">Cooling only — no ductwork needed</div></div>
-          </button>
-          <button class="opt" onclick="selectOpt(this,1,'heat-pump-ductless','Ductless Heat Pump')">
-            <div class="opt-icon">🔄</div>
-            <div><div class="opt-label">Ductless Heat Pump</div><div class="opt-sub">Heats AND cools — no ductwork needed</div></div>
-          </button>
-          <button class="opt" onclick="selectOpt(this,1,'heat-pump-ducted','Heat Pump — Ducted')">
-            <div class="opt-icon">♨️</div>
-            <div><div class="opt-label">Ducted Heat Pump</div><div class="opt-sub">Heats & cools — replaces furnace + AC</div></div>
-          </button>
-          <button class="opt" onclick="selectOpt(this,1,'not-sure','Not Sure Yet')">
-            <div class="opt-icon">🤔</div>
-            <div><div class="opt-label">Not Sure Yet</div><div class="opt-sub">Help me understand my options and costs</div></div>
-          </button>
-        </div>
-        <div class="calc-nav">
-          <button class="btn-next" id="next-1" disabled onclick="goToStep(2)">Next →</button>
-        </div>
-      </div>
-
-      <!-- STEP 2: Size/Zones -->
-      <div class="step-panel" id="step-2">
-        <div class="step-q" id="step2-q">Home size?</div>
-        <div class="step-hint" id="step2-hint">Select your approximate square footage</div>
-        <div class="options g2" id="opts-2"></div>
-        <div class="calc-nav">
-          <button class="btn-back" onclick="goToStep(1)">← Back</button>
-          <button class="btn-next" id="next-2" disabled onclick="goToStep(3)">Next →</button>
-        </div>
-      </div>
-
-      <!-- STEP 3: Job type -->
-      <div class="step-panel" id="step-3">
-        <div class="step-q">New or replacement?</div>
-        <div class="step-hint">This affects equipment and labor costs</div>
-        <div class="options g1">
-          <button class="opt" onclick="selectOpt(this,3,'replacement','Replacing existing system')">
-            <div class="opt-icon">🔄</div>
-            <div><div class="opt-label">Replacing existing system</div><div class="opt-sub">Existing ducts — swapping old equipment</div></div>
-          </button>
-          <button class="opt" onclick="selectOpt(this,3,'new-with-ducts','New install — ducts exist')">
-            <div class="opt-icon">🏠</div>
-            <div><div class="opt-label">New install — ducts already exist</div><div class="opt-sub">Adding cooling to a home with existing ductwork</div></div>
-          </button>
-          <button class="opt" onclick="selectOpt(this,3,'new-no-ducts','New install — no ducts')">
-            <div class="opt-icon">🔧</div>
-            <div><div class="opt-label">New install — no existing ductwork</div><div class="opt-sub">Common in older Snohomish County homes</div></div>
-          </button>
-          <button class="opt" onclick="selectOpt(this,3,'not-sure','Not sure')">
-            <div class="opt-icon">🤔</div>
-            <div><div class="opt-label">Not sure</div><div class="opt-sub">A pro can assess during the free estimate</div></div>
-          </button>
-        </div>
-        <div class="calc-nav">
-          <button class="btn-back" onclick="goToStep(2)">← Back</button>
-          <button class="btn-next" id="next-3" disabled onclick="goToStep(4)">Next →</button>
-        </div>
-      </div>
-
-      <!-- STEP 4: City -->
-      <div class="step-panel" id="step-4">
-        <div class="step-q">Your city?</div>
-        <div class="step-hint">Confirms you're in our service area</div>
-        <select class="city-select" id="city-select" onchange="checkCity(this.value)">
-          <option value="">Select your city...</option>
-          <option value="Mill Creek">Mill Creek</option>
-          <option value="Bothell">Bothell</option>
-          <option value="Lynnwood">Lynnwood</option>
-          <option value="Mukilteo">Mukilteo</option>
-          <option value="Kenmore">Kenmore</option>
-          <option value="Mountlake Terrace">Mountlake Terrace</option>
-          <option value="Edmonds">Edmonds</option>
-          <option value="Shoreline">Shoreline</option>
-          <option value="Woodinville">Woodinville</option>
-          <option value="Brier">Brier</option>
-          <option value="Everett">Everett</option>
-          <option value="Marysville">Marysville</option>
-          <option value="Monroe">Monroe</option>
-          <option value="Snohomish">Snohomish</option>
-          <option value="Arlington">Arlington</option>
-          <option value="Lake Stevens">Lake Stevens</option>
-          <option value="Martha Lake">Martha Lake</option>
-          <option value="Maltby">Maltby</option>
-          <option value="Other nearby area">Other nearby area</option>
-        </select>
-        <div id="city-msg" style="font-size:12px;color:var(--blue-muted);margin-top:8px;min-height:18px"></div>
-        <div class="calc-nav">
-          <button class="btn-back" onclick="goToStep(3)">← Back</button>
-          <button class="btn-next" id="next-4" disabled onclick="showResult()">See My Estimate →</button>
-        </div>
-      </div>
-
-    </div><!-- /calc-body -->
-
-    <!-- RESULT PANEL -->
-    <div class="result-panel" id="result-panel">
-      <div class="result-eyebrow" id="result-eyebrow">Your Snohomish County Estimate — 2026</div>
-      <div class="result-system" id="result-system"></div>
-      <div class="result-range" id="result-range"></div>
-      <div class="result-local" id="result-local"></div>
-      <div class="result-breakdown" id="result-breakdown"></div>
-      <div class="rebate-note" id="rebate-note" style="display:none"></div>
-
-      <div class="result-cta-box">
-        <div class="result-disclaimer" id="result-disclaimer" style="font-size:12px;color:#6B8299;margin-bottom:12px;line-height:1.6;"></div>
-      <div class="value-bullets">
-        <div class="value-bullet">💡 Spring is peak AC season — lock in before demand spikes</div>
-        <div class="value-bullet">📅 AC installs in Mill Creek booking 2–3 weeks out</div>
-        <div class="value-bullet">⏱️ Most installations completed in one day</div>
-      </div>
-      <div style="font-size:13px;font-weight:700;color:#0D1F3C;margin-bottom:10px;">Need an exact estimate?</div>
-      <button class="cta-reveal-btn" onclick="revealForm(this)">Talk to a Local Expert →</button>
-        <div class="form-reveal" id="form-reveal">
-          <div class="result-cta-title">Get Your Exact Free Estimate</div>
-          <div class="result-cta-sub">A licensed local pro reaches out same day — no obligation, no spam calls</div>
-          <div class="tally-bg">
-            <iframe id="tally-frame" src="" loading="lazy" width="100%" height="420" frameborder="0" marginheight="0" marginwidth="0" scrolling="yes" title="AC Calc" style="max-height:420px;overflow:auto"></iframe>
-          </div>
-        </div>
-
-        <div class="trust-signals">
-          <span>🔒 Licensed, insured & bonded</span>
-          <span style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center;">
-            <span style="color:#0D1F3C;font-weight:700;font-size:11px;">✅ Free Estimate</span>
-            <span style="color:#0D1F3C;font-weight:700;font-size:11px;">✅ No Obligation</span>
-            <span style="color:#0D1F3C;font-weight:700;font-size:11px;">✅ No Spam Calls</span>
-          </span>
-        </div>
-
-      </div>
-
-      <button class="btn-restart" onclick="restartCalc()">← Start over with different selections</button>
+    <div class="trust-signals">
+      <span>🔒 Licensed, insured & bonded</span>
+      <span style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center;">
+        <span style="color:#0D1F3C;font-weight:700;font-size:11px;">✅ Free Estimate</span>
+        <span style="color:#0D1F3C;font-weight:700;font-size:11px;">✅ No Obligation</span>
+        <span style="color:#0D1F3C;font-weight:700;font-size:11px;">✅ No Spam Calls</span>
+      </span>
     </div>
 
-    <!-- TRUST STRIP -->
-    <div class="trust-strip">
-      <div class="trust-item"><span class="trust-check">✓</span> Licensed & Insured</div>
-      <div class="trust-item"><span class="trust-check">✓</span> Same-Day Response</div>
-      <div class="trust-item"><span class="trust-check">✓</span> Free Estimates</div>
-      <div class="trust-item"><span class="trust-check">✓</span> No Obligation</div>
-    </div>
+  </div>
+
+  <button class="btn-restart" onclick="restartCalc()">← Start over with different selections</button>
+</div>
+
+<!-- TRUST STRIP -->
+<div class="trust-strip">
+  <div class="trust-item"><span class="trust-check">✓</span> Licensed & Insured</div>
+  <div class="trust-item"><span class="trust-check">✓</span> Same-Day Response</div>
+  <div class="trust-item"><span class="trust-check">✓</span> Free Estimates</div>
+  <div class="trust-item"><span class="trust-check">✓</span> No Obligation</div>
+</div>
+```
 
   </div>
 </div><!-- /calc-wrap -->
 
 <!-- REVIEWS -->
+
 <div class="section" id="faq">
   <div class="section-eyebrow">Common Questions</div>
   <div class="section-title">AC & Heating FAQ</div>
@@ -1074,8 +1133,8 @@
   </div>
 </div>
 
-
 <!-- SERVICE AREA -->
+
 <div class="area-section">
   <div class="area-eyebrow">Service Area</div>
   <div class="area-pills">
@@ -1097,6 +1156,7 @@
 </div>
 
 <!-- FOOTER -->
+
 <div class="footer">
   <p>
     millcreek-hvac.com &nbsp;|&nbsp; 425.595.7972<br>
@@ -1279,7 +1339,45 @@ function checkCity(val){
   btn.disabled=false;
 }
 
+function runLoadingBar(message, accentColor, callback){
+  const overlay = document.getElementById('loading-overlay');
+  const bar = document.getElementById('loading-bar-fill');
+  const pct = document.getElementById('loading-pct');
+  const msg = document.getElementById('loading-message');
+
+  msg.textContent = message;
+  bar.style.background = accentColor;
+  bar.style.width = '0%';
+  pct.textContent = '0%';
+  overlay.classList.add('active');
+
+  let progress = 0;
+  const duration = 1800;
+  const interval = 40;
+  const steps = duration / interval;
+  const increment = 100 / steps;
+
+  const timer = setInterval(() => {
+    progress = Math.min(progress + increment, 100);
+    bar.style.width = progress + '%';
+    pct.textContent = Math.round(progress) + '%';
+    if(progress >= 100){
+      clearInterval(timer);
+      setTimeout(() => {
+        overlay.classList.remove('active');
+        callback();
+      }, 150);
+    }
+  }, interval);
+}
+
 function showResult(){
+  // Hide steps, show loading bar first
+  document.querySelectorAll('.step-panel').forEach(p=>p.classList.remove('active'));
+  runLoadingBar('Checking local AC installation rates...', '#1B6FC8', showResult_actual);
+}
+
+function showResult_actual(){
   const sys=pricing[state.system];
   const range=sys.ranges[state.size][state.job];
   const breakdown=sys.breakdown[state.job];
@@ -1373,5 +1471,6 @@ function toggleFaq(btn){
   if(!open){btn.classList.add('open');a.classList.add('open');}
 }
 </script>
+
 </body>
 </html>
