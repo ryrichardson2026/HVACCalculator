@@ -439,14 +439,6 @@
     color: #6B8299;
     margin-bottom: 14px;
   }
-  .tally-bg {
-    background: #F5F7FA;
-    border-radius: 8px;
-    padding: 12px;
-    margin-bottom: 14px;
-    max-height: 460px;
-    overflow: hidden;
-  }
   .or-divider {
     display: flex;
     align-items: center;
@@ -854,15 +846,6 @@
 
 <!-- Google Ads Tag -->
 
-<script async src="https://www.googletagmanager.com/gtag/js?id=AW-17039190320"></script>
-
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'AW-17039190320');
-</script>
-
 </head>
 <body>
 
@@ -1046,32 +1029,46 @@
   <div class="result-breakdown" id="result-breakdown"></div>
   <div class="rebate-note" id="rebate-note" style="display:none"></div>
 
-  <div class="result-cta-box">
-    <div class="result-disclaimer" id="result-disclaimer" style="font-size:12px;color:#6B8299;margin-bottom:12px;line-height:1.6;"></div>
-  <div class="value-bullets">
-    <div class="value-bullet">💡 Spring is peak AC season — lock in before demand spikes</div>
-    <div class="value-bullet">📅 AC installs in Mill Creek booking 2–3 weeks out</div>
-    <div class="value-bullet">⏱️ Most installations completed in one day</div>
+  <div style="background:#FFFFFF;border:1px solid #E2EAF2;border-radius:12px;padding:20px;margin-bottom:12px;" id="cta-box">
+    <div style="font-size:16px;font-weight:700;color:#0D1F3C;line-height:1.5;margin-bottom:16px;" id="cta-q"></div>
+    <button onclick="showForm()" style="width:100%;background:#27AE60;border:none;border-radius:10px;padding:16px;font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:800;color:#FFFFFF;cursor:pointer;margin-bottom:10px;">Get My Exact Price &rarr;</button>
+    <button onclick="showNotYet()" style="width:100%;background:none;border:none;font-size:13px;color:#B8C9D9;cursor:pointer;font-family:'Barlow',sans-serif;padding:6px;">Not yet</button>
   </div>
-  <div style="font-size:13px;font-weight:700;color:#0D1F3C;margin-bottom:10px;">Need an exact estimate?</div>
-  <button class="cta-reveal-btn" onclick="revealForm(this)">Talk to a Local Expert →</button>
-    <div class="form-reveal" id="form-reveal">
-      <div class="result-cta-title">Get Your Exact Free Estimate</div>
-      <div class="result-cta-sub">A licensed local pro reaches out same day — no obligation, no spam calls</div>
-      <div class="tally-bg">
-        <iframe id="tally-frame" src="" loading="lazy" width="100%" height="420" frameborder="0" marginheight="0" marginwidth="0" scrolling="yes" title="AC Calc" style="max-height:420px;overflow:auto"></iframe>
-      </div>
+  <div id="form-section" style="display:none;background:#FFFFFF;border:1px solid #E2EAF2;border-radius:12px;padding:20px;margin-bottom:12px;">
+    <div style="font-size:15px;font-weight:700;color:#0D1F3C;margin-bottom:4px;">Connect with a local installer</div>
+    <div style="font-size:12px;color:#6B8299;margin-bottom:16px;">A licensed local installer in your area will reach out &mdash; no obligation</div>
+    <input type="text" id="h-pot" style="display:none;position:absolute;left:-9999px;" tabindex="-1" autocomplete="off">
+    <div style="margin-bottom:6px;"><input type="text" id="f-name" placeholder="First name" autocomplete="given-name" oninput="clearFErr('f-name')" style="width:100%;padding:12px 14px;border:1.5px solid #E2EAF2;border-radius:10px;font-size:14px;font-family:'Barlow',sans-serif;color:#0D1F3C;outline:none;background:#F5F7FA;"><div id="f-name-err" style="font-size:11px;color:#E74C3C;min-height:16px;"></div></div>
+    <div style="margin-bottom:6px;"><input type="tel" id="f-phone" placeholder="Phone number" autocomplete="tel" inputmode="numeric" oninput="clearFErr('f-phone')" style="width:100%;padding:12px 14px;border:1.5px solid #E2EAF2;border-radius:10px;font-size:14px;font-family:'Barlow',sans-serif;color:#0D1F3C;outline:none;background:#F5F7FA;"><div id="f-phone-err" style="font-size:11px;color:#E74C3C;min-height:16px;"></div></div>
+    <div style="margin-bottom:6px;"><input type="email" id="f-email" placeholder="Email address" autocomplete="email" oninput="clearFErr('f-email')" style="width:100%;padding:12px 14px;border:1.5px solid #E2EAF2;border-radius:10px;font-size:14px;font-family:'Barlow',sans-serif;color:#0D1F3C;outline:none;background:#F5F7FA;"><div id="f-email-err" style="font-size:11px;color:#E74C3C;min-height:16px;"></div></div>
+    <div style="display:flex;align-items:flex-start;gap:10px;margin:10px 0 14px;">
+      <input type="checkbox" id="f-agree" onchange="toggleSubmit()" style="width:18px;height:18px;flex-shrink:0;margin-top:2px;accent-color:#27AE60;cursor:pointer;">
+      <label style="font-size:12px;color:#8AAFC8;line-height:1.6;cursor:pointer;" for="f-agree">By submitting I agree I may be contacted by one local installer about my estimate.</label>
     </div>
-
-    <div class="trust-signals">
-      <span>🔒 Licensed, insured & bonded</span>
-      <span style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center;">
-        <span style="color:#0D1F3C;font-weight:700;font-size:11px;">✅ Free Estimate</span>
-        <span style="color:#0D1F3C;font-weight:700;font-size:11px;">✅ No Obligation</span>
-        <span style="color:#0D1F3C;font-weight:700;font-size:11px;">✅ No Spam Calls</span>
-      </span>
+    <button id="btn-submit" disabled onclick="submitForm()" style="width:100%;background:#27AE60;border:none;border-radius:10px;padding:14px;font-size:15px;font-weight:700;color:#FFFFFF;cursor:pointer;font-family:'Barlow',sans-serif;">Connect Me with a Local Installer &rarr;</button>
+    <div style="font-size:11px;color:#6B8299;text-align:center;margin-top:10px;">No obligation &nbsp;&middot;&nbsp; Free instant estimate &nbsp;&middot;&nbsp; Local &amp; Licensed</div>
+  </div>
+  <div id="done-msg" style="display:none;background:rgba(39,174,96,0.06);border:1px solid rgba(39,174,96,0.15);border-radius:12px;padding:16px 18px;margin-bottom:12px;">
+    <div style="font-size:16px;font-weight:700;color:#1A6B3A;margin-bottom:4px;">Done.</div>
+    <div style="font-size:13px;color:#4A7A5A;line-height:1.6;">Your estimate is headed to your inbox.</div>
+  </div>
+  <div id="warm-box" style="display:none;background:#FFFFFF;border:1.5px solid #E2EAF2;border-radius:14px;padding:20px;margin-bottom:12px;">
+    <div style="font-size:15px;font-weight:700;color:#0D1F3C;margin-bottom:14px;">No worries &mdash; want us to email you your estimate?</div>
+    <input type="email" id="email-only" placeholder="Your email address" oninput="clearWarmErr()" style="width:100%;padding:12px 14px;border:1.5px solid #E2EAF2;border-radius:10px;font-size:14px;font-family:'Barlow',sans-serif;color:#0D1F3C;outline:none;background:#F5F7FA;margin-bottom:6px;">
+    <div id="email-only-err" style="font-size:11px;color:#E74C3C;min-height:16px;margin-bottom:6px;"></div>
+    <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:14px;">
+      <input type="checkbox" id="email-agree" onchange="toggleWarmSubmit()" style="width:18px;height:18px;flex-shrink:0;margin-top:2px;accent-color:#27AE60;cursor:pointer;">
+      <label style="font-size:12px;color:#8AAFC8;line-height:1.6;cursor:pointer;" for="email-agree">I agree to receive occasional tips from Mill Creek HVAC. Unsubscribe anytime.</label>
     </div>
-
+    <button id="btn-warm" disabled onclick="submitWarm()" style="width:100%;background:#27AE60;border:none;border-radius:10px;padding:14px;font-size:15px;font-weight:700;color:#FFFFFF;cursor:pointer;font-family:'Barlow',sans-serif;margin-bottom:8px;">Send My Estimate &rarr;</button>
+    <button onclick="showSkip()" style="width:100%;background:none;border:none;font-size:12px;color:#B8C9D9;cursor:pointer;font-family:'Barlow',sans-serif;padding:6px;">I&rsquo;m all set, thanks</button>
+  </div>
+  <div id="thankyou-warm" style="display:none;text-align:center;padding:20px;background:#F0FDF4;border:1px solid #D1FAE5;border-radius:12px;margin-bottom:10px;">
+    <div style="font-size:15px;font-weight:700;color:#0D1F3C;margin-bottom:6px;">Got it &mdash; check your inbox.</div>
+    <div style="font-size:13px;color:#8AAFC8;line-height:1.7;">We&rsquo;ll email your estimate shortly.</div>
+  </div>
+  <div id="thankyou-skip" style="display:none;text-align:center;padding:20px;">
+    <div style="font-size:13px;color:#8AAFC8;line-height:1.7;">No problem. Your estimate will still be here when you&rsquo;re ready.</div>
   </div>
 
   <button class="btn-restart" onclick="restartCalc()">← Start over with different selections</button>
@@ -1209,342 +1206,38 @@
 </div>
 
 <script>
+const sessionID = Date.now().toString(36) + Math.random().toString(36).substr(2);
+const WEBHOOK = "https://hook.us2.make.com/hmenfw6iwamhalxej725wzldgy201c1m";
 const state = { system:null, systemLabel:null, size:null, sizeLabel:null, job:null, jobLabel:null, city:null };
-
 const pricing = {
-  'not-sure': {
-    step2q:'What size is your home?',step2hint:'We\'ll show you the most relevant options',
-    sizes:[
-      {id:'u1500',label:'Under 1,500 sqft',sub:'Smaller home'},
-      {id:'1500-2500',label:'1,500 – 2,500 sqft',sub:'Average Snohomish home'},
-      {id:'2500-3500',label:'2,500 – 3,500 sqft',sub:'Larger family home'},
-      {id:'o3500',label:'Over 3,500 sqft',sub:'Large or custom home'},
-    ],
-    ranges:{
-      'u1500':    {replacement:[3500,8000],'new-with-ducts':[3500,8000],'new-no-ducts':[3500,8000],'not-sure':[3500,8000]},
-      '1500-2500':{replacement:[5500,10500],'new-with-ducts':[5500,10500],'new-no-ducts':[5500,10500],'not-sure':[5500,10500]},
-      '2500-3500':{replacement:[9500,18500],'new-with-ducts':[9500,18500],'new-no-ducts':[9500,18500],'not-sure':[9500,18500]},
-      'o3500':    {replacement:[15000,24000],'new-with-ducts':[15000,24000],'new-no-ducts':[15000,24000],'not-sure':[15000,24000]},
-    },
-    breakdown:{
-      replacement:[['Equipment','$2,000–$5,000'],['Labor','$1,500–$3,500'],['Permits','$150–$400']],
-      'new-with-ducts':[['Equipment','$2,000–$5,000'],['Labor','$1,500–$3,500'],['Permits','$150–$400']],
-      'new-no-ducts':[['Equipment','$2,000–$5,000'],['Labor','$1,500–$3,500'],['Permits','$150–$400']],
-      'not-sure':[['Equipment','$2,000–$5,000'],['Labor','$1,500–$3,500'],['Permits','$150–$400']],
-    },
-    rebate:false,
-    notSure:true,
-  },
-  'central-ac': {
-    sizes:[
-      {id:'u1500',label:'Under 1,500 sqft',sub:'Smaller home'},
-      {id:'1500-2500',label:'1,500 – 2,500 sqft',sub:'Average Snohomish home'},
-      {id:'2500-3500',label:'2,500 – 3,500 sqft',sub:'Larger family home'},
-      {id:'o3500',label:'Over 3,500 sqft',sub:'Large or custom home'},
-    ],
-    ranges:{
-      'u1500':    {replacement:[4500,6500],'new-with-ducts':[5500,8000],'new-not-sure':[6500,10000],'new-no-ducts':[8000,12000],'not-sure':[4500,8000]},
-      '1500-2500':{replacement:[5500,8500],'new-with-ducts':[7000,10500],'new-not-sure':[8500,12500],'new-no-ducts':[9500,15000],'not-sure':[5500,10500]},
-      '2500-3500':{replacement:[7500,11500],'new-with-ducts':[9500,14000],'new-not-sure':[11000,16000],'new-no-ducts':[12000,18500],'not-sure':[7500,14000]},
-      'o3500':    {replacement:[10000,15000],'new-with-ducts':[13000,18500],'new-not-sure':[14500,21000],'new-no-ducts':[15500,23000],'not-sure':[10000,18500]},
-    },
-    breakdown:{
-      replacement:[['Equipment','$2,500–$4,500'],['Labor','$1,500–$2,500'],['Permits','$150–$400']],
-      'new-with-ducts':[['Equipment','$2,500–$4,500'],['Labor','$2,000–$3,500'],['Duct modifications','$500–$1,500'],['Permits','$150–$400']],
-      'new-not-sure':[['Equipment','$2,500–$4,500'],['Labor','$2,000–$3,500'],['Ductwork (if needed)','$0–$5,500'],['Permits','$150–$400']],
-      'new-no-ducts':[['Equipment','$2,500–$4,500'],['Labor','$2,000–$3,500'],['New ductwork','$2,500–$5,500'],['Permits','$150–$400']],
-      'not-sure':[['Equipment','$2,500–$4,500'],['Labor','$1,500–$3,500'],['Permits + misc','$300–$800']],
-    },
-    rebate:false,
-  },
-  'mini-split': {
-    step2q:'How many zones?',step2hint:'Each zone = one indoor wall unit',
-    sizes:[
-      {id:'zone1',label:'Single zone — 1 room',sub:'Up to 600 sqft'},
-      {id:'zone2',label:'2 zones — 2 rooms',sub:'600–1,200 sqft coverage'},
-      {id:'zone3',label:'3 zones — 3 rooms',sub:'1,200–2,000 sqft coverage'},
-      {id:'zone4',label:'4–5 zones — whole home',sub:'2,000+ sqft coverage'},
-    ],
-    ranges:{
-      'zone1':{replacement:[3500,5500],'new-with-ducts':[3500,5500],'new-no-ducts':[3500,5500],'not-sure':[3500,5500]},
-      'zone2':{replacement:[6500,9500],'new-with-ducts':[6500,9500],'new-no-ducts':[6500,9500],'not-sure':[6500,9500]},
-      'zone3':{replacement:[10500,15000],'new-with-ducts':[10500,15000],'new-no-ducts':[10500,15000],'not-sure':[10500,15000]},
-      'zone4':{replacement:[15000,22000],'new-with-ducts':[15000,22000],'new-no-ducts':[15000,22000],'not-sure':[15000,22000]},
-    },
-    breakdown:{
-      replacement:[['Equipment (per zone)','$1,200–$2,500'],['Labor & line sets','$1,500–$2,500'],['Permits','$150–$400']],
-      'new-with-ducts':[['Equipment (per zone)','$1,200–$2,500'],['Labor & line sets','$1,500–$2,500'],['Permits','$150–$400']],
-      'new-no-ducts':[['Equipment (per zone)','$1,200–$2,500'],['Labor & line sets','$1,500–$2,500'],['Permits','$150–$400']],
-      'not-sure':[['Equipment','$1,200–$2,500/zone'],['Labor & line sets','$1,500–$2,500'],['Permits','$150–$400']],
-    },
-    rebate:false,
-  },
-  'heat-pump-ducted': {
-    sizes:[
-      {id:'u1500',label:'Under 1,500 sqft',sub:'Smaller home'},
-      {id:'1500-2500',label:'1,500 – 2,500 sqft',sub:'Average home'},
-      {id:'2500-3500',label:'2,500 – 3,500 sqft',sub:'Larger home'},
-      {id:'o3500',label:'Over 3,500 sqft',sub:'Large home'},
-    ],
-    ranges:{
-      'u1500':    {replacement:[7000,11000],'new-with-ducts':[8000,12500],'new-not-sure':[9000,14500],'new-no-ducts':[10500,17000],'not-sure':[7000,12500]},
-      '1500-2500':{replacement:[9500,14500],'new-with-ducts':[11000,16000],'new-not-sure':[12000,18500],'new-no-ducts':[13500,21000],'not-sure':[9500,16000]},
-      '2500-3500':{replacement:[13000,18500],'new-with-ducts':[14500,21000],'new-not-sure':[15500,23000],'new-no-ducts':[17000,25500],'not-sure':[13000,21000]},
-      'o3500':    {replacement:[17000,24000],'new-with-ducts':[19000,27000],'new-not-sure':[20000,29000],'new-no-ducts':[21500,31000],'not-sure':[17000,27000]},
-    },
-    breakdown:{
-      replacement:[['Heat pump equipment','$3,500–$7,000'],['Labor','$2,500–$4,000'],['Air handler','$1,000–$2,000'],['Permits','$150–$400']],
-      'new-with-ducts':[['Heat pump equipment','$3,500–$7,000'],['Labor','$2,500–$4,000'],['Air handler + coil','$1,500–$2,500'],['Permits','$150–$400']],
-      'new-no-ducts':[['Heat pump equipment','$3,500–$7,000'],['New ductwork','$2,500–$5,500'],['Labor','$3,000–$5,000'],['Permits','$150–$400']],
-      'not-sure':[['Equipment','$3,500–$7,000'],['Labor','$2,500–$4,500'],['Permits + misc','$300–$800']],
-    },
-    rebate:true,
-  },
-  'heat-pump-ductless': {
-    step2q:'How many zones?',step2hint:'Each zone = one indoor wall unit — heats and cools',
-    sizes:[
-      {id:'zone1',label:'Single zone — 1 room',sub:'Up to 600 sqft'},
-      {id:'zone2',label:'2 zones — 2 rooms',sub:'600–1,200 sqft coverage'},
-      {id:'zone3',label:'3 zones — 3 rooms',sub:'1,200–2,000 sqft coverage'},
-      {id:'zone4',label:'4–5 zones — whole home',sub:'2,000+ sqft coverage'},
-    ],
-    ranges:{
-      'zone1':{replacement:[4000,6500],'new-with-ducts':[4000,6500],'new-no-ducts':[4000,6500],'not-sure':[4000,6500]},
-      'zone2':{replacement:[7500,11000],'new-with-ducts':[7500,11000],'new-no-ducts':[7500,11000],'not-sure':[7500,11000]},
-      'zone3':{replacement:[12000,17000],'new-with-ducts':[12000,17000],'new-no-ducts':[12000,17000],'not-sure':[12000,17000]},
-      'zone4':{replacement:[17000,24000],'new-with-ducts':[17000,24000],'new-no-ducts':[17000,24000],'not-sure':[17000,24000]},
-    },
-    breakdown:{
-      replacement:[['Equipment (per zone)','$1,500–$3,000'],['Labor & refrigerant lines','$1,500–$2,500'],['Permits','$150–$400']],
-      'new-with-ducts':[['Equipment (per zone)','$1,500–$3,000'],['Labor & refrigerant lines','$1,500–$2,500'],['Permits','$150–$400']],
-      'new-no-ducts':[['Equipment (per zone)','$1,500–$3,000'],['Labor & refrigerant lines','$1,500–$2,500'],['Permits','$150–$400']],
-      'not-sure':[['Equipment','$1,500–$3,000/zone'],['Labor & lines','$1,500–$2,500'],['Permits','$150–$400']],
-    },
-    rebate:true,
-  },
+  "not-sure":{step2q:"What size is your home?",step2hint:"We'll show you the most relevant options",sizes:[{id:"u1500",label:"Under 1,500 sqft",sub:"Smaller home"},{id:"1500-2500",label:"1,500 – 2,500 sqft",sub:"Average Snohomish home"},{id:"2500-3500",label:"2,500 – 3,500 sqft",sub:"Larger family home"},{id:"o3500",label:"Over 3,500 sqft",sub:"Large or custom home"}],ranges:{"u1500":{replacement:[3500,8000],"new-with-ducts":[3500,8000],"new-no-ducts":[3500,8000],"not-sure":[3500,8000]},"1500-2500":{replacement:[5500,10500],"new-with-ducts":[5500,10500],"new-no-ducts":[5500,10500],"not-sure":[5500,10500]},"2500-3500":{replacement:[9500,18500],"new-with-ducts":[9500,18500],"new-no-ducts":[9500,18500],"not-sure":[9500,18500]},"o3500":{replacement:[15000,24000],"new-with-ducts":[15000,24000],"new-no-ducts":[15000,24000],"not-sure":[15000,24000]}},breakdown:{replacement:[["Equipment","$2,000–$5,000"],["Labor","$1,500–$3,500"],["Permits","$150–$400"]],"new-with-ducts":[["Equipment","$2,000–$5,000"],["Labor","$1,500–$3,500"],["Permits","$150–$400"]],"new-no-ducts":[["Equipment","$2,000–$5,000"],["Labor","$1,500–$3,500"],["Permits","$150–$400"]],"not-sure":[["Equipment","$2,000–$5,000"],["Labor","$1,500–$3,500"],["Permits","$150–$400"]]},rebate:false},
+  "central-ac":{sizes:[{id:"u1500",label:"Under 1,500 sqft",sub:"Smaller home"},{id:"1500-2500",label:"1,500 – 2,500 sqft",sub:"Average Snohomish home"},{id:"2500-3500",label:"2,500 – 3,500 sqft",sub:"Larger family home"},{id:"o3500",label:"Over 3,500 sqft",sub:"Large or custom home"}],ranges:{"u1500":{replacement:[4500,6500],"new-with-ducts":[5500,8000],"new-not-sure":[6500,10000],"new-no-ducts":[8000,12000],"not-sure":[4500,8000]},"1500-2500":{replacement:[5500,8500],"new-with-ducts":[7000,10500],"new-not-sure":[8500,12500],"new-no-ducts":[9500,15000],"not-sure":[5500,10500]},"2500-3500":{replacement:[7500,11500],"new-with-ducts":[9500,14000],"new-not-sure":[11000,16000],"new-no-ducts":[12000,18500],"not-sure":[7500,14000]},"o3500":{replacement:[10000,15000],"new-with-ducts":[13000,18500],"new-not-sure":[14500,21000],"new-no-ducts":[15500,23000],"not-sure":[10000,18500]}},breakdown:{replacement:[["Equipment","$2,500–$4,500"],["Labor","$1,500–$2,500"],["Permits","$150–$400"]],"new-with-ducts":[["Equipment","$2,500–$4,500"],["Labor","$2,000–$3,500"],["Duct modifications","$500–$1,500"],["Permits","$150–$400"]],"new-not-sure":[["Equipment","$2,500–$4,500"],["Labor","$2,000–$3,500"],["Ductwork (if needed)","$0–$5,500"],["Permits","$150–$400"]],"new-no-ducts":[["Equipment","$2,500–$4,500"],["Labor","$2,000–$3,500"],["New ductwork","$2,500–$5,500"],["Permits","$150–$400"]],"not-sure":[["Equipment","$2,500–$4,500"],["Labor","$1,500–$3,500"],["Permits + misc","$300–$800"]]},rebate:false},
+  "mini-split":{step2q:"How many zones?",step2hint:"Each zone = one indoor wall unit",sizes:[{id:"zone1",label:"Single zone — 1 room",sub:"Up to 600 sqft"},{id:"zone2",label:"2 zones — 2 rooms",sub:"600–1,200 sqft coverage"},{id:"zone3",label:"3 zones — 3 rooms",sub:"1,200–2,000 sqft coverage"},{id:"zone4",label:"4–5 zones — whole home",sub:"2,000+ sqft coverage"}],ranges:{"zone1":{replacement:[3500,5500],"new-with-ducts":[3500,5500],"new-no-ducts":[3500,5500],"not-sure":[3500,5500]},"zone2":{replacement:[6500,9500],"new-with-ducts":[6500,9500],"new-no-ducts":[6500,9500],"not-sure":[6500,9500]},"zone3":{replacement:[10500,15000],"new-with-ducts":[10500,15000],"new-no-ducts":[10500,15000],"not-sure":[10500,15000]},"zone4":{replacement:[15000,22000],"new-with-ducts":[15000,22000],"new-no-ducts":[15000,22000],"not-sure":[15000,22000]}},breakdown:{replacement:[["Equipment (per zone)","$1,200–$2,500"],["Labor & line sets","$1,500–$2,500"],["Permits","$150–$400"]],"new-with-ducts":[["Equipment (per zone)","$1,200–$2,500"],["Labor & line sets","$1,500–$2,500"],["Permits","$150–$400"]],"new-no-ducts":[["Equipment (per zone)","$1,200–$2,500"],["Labor & line sets","$1,500–$2,500"],["Permits","$150–$400"]],"not-sure":[["Equipment","$1,200–$2,500/zone"],["Labor & line sets","$1,500–$2,500"],["Permits","$150–$400"]]},rebate:false},
+  "heat-pump-ducted":{sizes:[{id:"u1500",label:"Under 1,500 sqft",sub:"Smaller home"},{id:"1500-2500",label:"1,500 – 2,500 sqft",sub:"Average home"},{id:"2500-3500",label:"2,500 – 3,500 sqft",sub:"Larger home"},{id:"o3500",label:"Over 3,500 sqft",sub:"Large home"}],ranges:{"u1500":{replacement:[7000,11000],"new-with-ducts":[8000,12500],"new-not-sure":[9000,14500],"new-no-ducts":[10500,17000],"not-sure":[7000,12500]},"1500-2500":{replacement:[9500,14500],"new-with-ducts":[11000,16000],"new-not-sure":[12000,18500],"new-no-ducts":[13500,21000],"not-sure":[9500,16000]},"2500-3500":{replacement:[13000,18500],"new-with-ducts":[14500,21000],"new-not-sure":[15500,23000],"new-no-ducts":[17000,25500],"not-sure":[13000,21000]},"o3500":{replacement:[17000,24000],"new-with-ducts":[19000,27000],"new-not-sure":[20000,29000],"new-no-ducts":[21500,31000],"not-sure":[17000,27000]}},breakdown:{replacement:[["Heat pump equipment","$3,500–$7,000"],["Labor","$2,500–$4,000"],["Air handler","$1,000–$2,000"],["Permits","$150–$400"]],"new-with-ducts":[["Heat pump equipment","$3,500–$7,000"],["Labor","$2,500–$4,000"],["Air handler + coil","$1,500–$2,500"],["Permits","$150–$400"]],"new-no-ducts":[["Heat pump equipment","$3,500–$7,000"],["New ductwork","$2,500–$5,500"],["Labor","$3,000–$5,000"],["Permits","$150–$400"]],"not-sure":[["Equipment","$3,500–$7,000"],["Labor","$2,500–$4,500"],["Permits + misc","$300–$800"]]},rebate:true},
+  "heat-pump-ductless":{step2q:"How many zones?",step2hint:"Each zone = one indoor wall unit — heats and cools",sizes:[{id:"zone1",label:"Single zone — 1 room",sub:"Up to 600 sqft"},{id:"zone2",label:"2 zones — 2 rooms",sub:"600–1,200 sqft coverage"},{id:"zone3",label:"3 zones — 3 rooms",sub:"1,200–2,000 sqft coverage"},{id:"zone4",label:"4–5 zones — whole home",sub:"2,000+ sqft coverage"}],ranges:{"zone1":{replacement:[4000,6500],"new-with-ducts":[4000,6500],"new-no-ducts":[4000,6500],"not-sure":[4000,6500]},"zone2":{replacement:[7500,11000],"new-with-ducts":[7500,11000],"new-no-ducts":[7500,11000],"not-sure":[7500,11000]},"zone3":{replacement:[12000,17000],"new-with-ducts":[12000,17000],"new-no-ducts":[12000,17000],"not-sure":[12000,17000]},"zone4":{replacement:[17000,24000],"new-with-ducts":[17000,24000],"new-no-ducts":[17000,24000],"not-sure":[17000,24000]}},breakdown:{replacement:[["Equipment (per zone)","$1,500–$3,000"],["Labor & refrigerant lines","$1,500–$2,500"],["Permits","$150–$400"]],"new-with-ducts":[["Equipment (per zone)","$1,500–$3,000"],["Labor & refrigerant lines","$1,500–$2,500"],["Permits","$150–$400"]],"new-no-ducts":[["Equipment (per zone)","$1,500–$3,000"],["Labor & refrigerant lines","$1,500–$2,500"],["Permits","$150–$400"]],"not-sure":[["Equipment","$1,500–$3,000/zone"],["Labor & lines","$1,500–$2,500"],["Permits","$150–$400"]]},rebate:true}
 };
-
-function fmt(n){ return '$'+n.toLocaleString(); }
-
-const ductedSystems = ['central-ac','heat-pump-ducted'];
-
-function selectJobType(el, val, label){
-  el.closest('.options').querySelectorAll('.opt:not(.duct-opt)').forEach(o=>o.classList.remove('selected'));
-  el.classList.add('selected');
-  const isDucted = ductedSystems.includes(state.system);
-  const ductQ = document.getElementById('duct-question');
-  if(val === 'new' && isDucted){
-    ductQ.classList.add('active');
-    state.job = null;
-    state.jobLabel = null;
-    document.getElementById('next-3').disabled = true;
-    document.querySelectorAll('.duct-opt').forEach(o=>o.classList.remove('selected'));
-  } else {
-    ductQ.classList.remove('active');
-    document.querySelectorAll('.duct-opt').forEach(o=>o.classList.remove('selected'));
-    state.job = val === 'replacement' ? 'replacement' : 'not-sure';
-    state.jobLabel = label;
-    document.getElementById('next-3').disabled = false;
-  }
-}
-
-function selectDuct(el, val, label){
-  document.querySelectorAll('.duct-opt').forEach(o=>o.classList.remove('selected'));
-  el.classList.add('selected');
-  state.job = val;
-  state.jobLabel = label;
-  document.getElementById('next-3').disabled = false;
-}
-
-function selectOpt(el,step,val,label){
-  el.closest('.options').querySelectorAll('.opt').forEach(o=>o.classList.remove('selected'));
-  el.classList.add('selected');
-  if(step===1){state.system=val;state.systemLabel=label;document.getElementById('next-1').disabled=false;}
-  else if(step===2){state.size=val;state.sizeLabel=label;document.getElementById('next-2').disabled=false;}
-  else if(step===3){state.job=val;state.jobLabel=label;document.getElementById('next-3').disabled=false;}
-}
-
-function goToStep(n){
-  document.querySelectorAll('.step-panel').forEach(p=>p.classList.remove('active'));
-  document.getElementById('result-panel').classList.remove('active');
-  for(let i=1;i<=4;i++){
-    const s=document.getElementById('seg-'+i);
-    s.className='prog-seg'+(i<n?' done':i===n?' active':'');
-  }
-  document.getElementById('prog-label').textContent='Step '+n+' of 4';
-  if(n===2){
-    buildStep2();
-    gtag('event','calc_step1_complete',{send_to:'AW-17039190320',system:state.systemLabel});
-  }
-  if(n===3){
-    gtag('event','calc_step2_complete',{send_to:'AW-17039190320',size:state.sizeLabel});
-  }
-  if(n===4){
-    gtag('event','calc_step3_complete',{send_to:'AW-17039190320',job:state.jobLabel});
-  }
-  document.getElementById('step-'+n).classList.add('active');
-}
-
-function buildStep2(){
-  const sys=pricing[state.system];
-  document.getElementById('step2-q').textContent=sys.step2q||'Home size?';
-  document.getElementById('step2-hint').textContent=sys.step2hint||'Select your approximate square footage';
-  const c=document.getElementById('opts-2');
-  c.innerHTML='';
-  state.size=null;state.sizeLabel=null;
-  document.getElementById('next-2').disabled=true;
-  sys.sizes.forEach(s=>{
-    const btn=document.createElement('button');
-    btn.className='opt';
-    btn.innerHTML=`<div><div class="opt-label">${s.label}</div><div class="opt-sub">${s.sub}</div></div>`;
-    btn.onclick=function(){selectOpt(this,2,s.id,s.label);};
-    c.appendChild(btn);
-  });
-}
-
-function checkCity(val){
-  const msg=document.getElementById('city-msg');
-  const btn=document.getElementById('next-4');
-  if(!val){msg.textContent='';btn.disabled=true;return;}
-  state.city=val;
-  msg.textContent='✓ Great — we serve '+val;
-  msg.style.color='#7DC43A';
-  btn.disabled=false;
-}
-
-function runLoadingBar(message, accentColor, callback){
-  const overlay = document.getElementById('loading-overlay');
-  const bar = document.getElementById('loading-bar-fill');
-  const pct = document.getElementById('loading-pct');
-  const msg = document.getElementById('loading-message');
-
-  msg.textContent = message;
-  bar.style.background = accentColor;
-  bar.style.width = '0%';
-  pct.textContent = '0%';
-  overlay.classList.add('active');
-
-  let progress = 0;
-  const duration = 1800;
-  const interval = 40;
-  const steps = duration / interval;
-  const increment = 100 / steps;
-
-  const timer = setInterval(() => {
-    progress = Math.min(progress + increment, 100);
-    bar.style.width = progress + '%';
-    pct.textContent = Math.round(progress) + '%';
-    if(progress >= 100){
-      clearInterval(timer);
-      setTimeout(() => {
-        overlay.classList.remove('active');
-        callback();
-      }, 150);
-    }
-  }, interval);
-}
-
-function showResult(){
-  // Hide steps, show loading bar first
-  document.querySelectorAll('.step-panel').forEach(p=>p.classList.remove('active'));
-  runLoadingBar('Checking local AC installation rates...', '#1B6FC8', showResult_actual);
-}
-
-function showResult_actual(){
-  const sys=pricing[state.system];
-  const range=sys.ranges[state.size][state.job];
-  const breakdown=sys.breakdown[state.job];
-
-  document.querySelectorAll('.step-panel').forEach(p=>p.classList.remove('active'));
-  for(let i=1;i<=4;i++) document.getElementById('seg-'+i).className='prog-seg done';
-  document.getElementById('prog-label').textContent='Your estimate';
-
-  document.getElementById('result-eyebrow').textContent='YOUR '+state.city.toUpperCase()+' ESTIMATE — 2026';
-  document.getElementById('result-system').textContent=state.systemLabel+' — '+state.sizeLabel;
-  document.getElementById('result-range').textContent=fmt(range[0])+' – '+fmt(range[1]);
-  const isNotSure = state.system === 'not-sure';
-  document.getElementById('result-local').textContent = isNotSure
-    ? 'Estimated range based on typical installations in Greater Snohomish County — 2026 pricing. A local pro can recommend the best system for your home.'
-    : 'Based on recent installations in Greater Snohomish County — 2026 pricing.';
-  document.getElementById('result-disclaimer').textContent='Final cost depends on equipment brand, site conditions, and permit fees ($150–$400).';
-
-  let bdHtml='<div class="bd-title">What\'s typically included</div>';
-  breakdown.forEach(r=>{ bdHtml+=`<div class="bd-row"><span>${r[0]}</span><span>${r[1]}</span></div>`; });
-  document.getElementById('result-breakdown').innerHTML=bdHtml;
-
-  const rebateEl=document.getElementById('rebate-note');
-  if(sys.rebate){
-    rebateEl.textContent='💡 Washington State rebates may reduce your cost by $500–$1,500. Snohomish County PUD and PSE both offer heat pump incentives. Ask your pro about current programs.';
-    rebateEl.style.display='block';
-  } else { rebateEl.style.display='none'; }
-
-  // Wire Tally with hidden field parameters
-  const params=new URLSearchParams({
-    alignLeft:'1', hideTitle:'1', transparentBackground:'1',
-    system_type: state.systemLabel,
-    size: state.sizeLabel,
-    job: state.jobLabel,
-    city: state.city,
-    range: fmt(range[0])+' – '+fmt(range[1])
-  });
-  document.getElementById('tally-frame').src='https://tally.so/embed/68xg9A?'+params.toString();
-
-  document.getElementById('result-panel').classList.add('active');
-  document.querySelector('.calc-card').scrollIntoView({behavior:'smooth',block:'start'});
-
-  // Track step 4 complete and result shown
-  gtag('event','calc_step4_complete',{send_to:'AW-17039190320',city:state.city});
-  gtag('event','calc_result_shown',{
-    send_to:'AW-17039190320',
-    system:state.systemLabel,
-    size:state.sizeLabel,
-    job:state.jobLabel,
-    city:state.city,
-    range:fmt(range[0])+' – '+fmt(range[1])
-  });
-}
-
-function restartCalc(){
-  state.system=state.systemLabel=state.size=state.sizeLabel=state.job=state.jobLabel=state.city=null;
-  document.getElementById('city-select').value='';
-  document.getElementById('city-msg').textContent='';
-  document.querySelectorAll('.opt').forEach(o=>o.classList.remove('selected'));
-  document.getElementById('next-1').disabled=true;
-  document.getElementById('duct-question').classList.remove('active');
-  document.querySelectorAll('.duct-opt').forEach(o=>o.classList.remove('selected'));
-  document.getElementById('result-panel').classList.remove('active');
-  document.getElementById('tally-frame').src='';
-  goToStep(1);
-  document.getElementById('step-1').classList.add('active');
-}
-
-function revealForm(btn){
-  btn.style.display='none';
-  const reveal=document.getElementById('form-reveal');
-  reveal.classList.add('open');
-  reveal.scrollIntoView({behavior:'smooth',block:'start'});
-
-  // Track form reveal
-  gtag('event','calc_form_revealed',{send_to:'AW-17039190320'});
-}
-
-// Track Tally form submission via postMessage
-window.addEventListener('message',function(e){
-  if(typeof e.data==='string' && e.data.includes('tally-form-confirmed')){
-    gtag('event','conversion',{
-      send_to:'AW-17039190320/5ig7CLTbjY0cELDS9bw_',
-      event_category:'Calculator',
-      event_label:'Tally Form Submitted'
-    });
-  }
-});
-
-function toggleFaq(btn){
-  const a=btn.nextElementSibling;
-  const open=btn.classList.contains('open');
-  document.querySelectorAll('.faq-q').forEach(b=>{b.classList.remove('open');b.nextElementSibling.classList.remove('open');});
-  if(!open){btn.classList.add('open');a.classList.add('open');}
-}
+function fmt(n){return "$"+n.toLocaleString();}
+const ductedSystems=["central-ac","heat-pump-ducted"];
+function selectJobType(el,val,label){el.closest(".options").querySelectorAll(".opt:not(.duct-opt)").forEach(o=>o.classList.remove("selected"));el.classList.add("selected");const isDucted=ductedSystems.includes(state.system);const ductQ=document.getElementById("duct-question");if(val==="new"&&isDucted){ductQ.classList.add("active");state.job=null;state.jobLabel=null;document.getElementById("next-3").disabled=true;document.querySelectorAll(".duct-opt").forEach(o=>o.classList.remove("selected"));}else{ductQ.classList.remove("active");document.querySelectorAll(".duct-opt").forEach(o=>o.classList.remove("selected"));state.job=val==="replacement"?"replacement":"not-sure";state.jobLabel=label;document.getElementById("next-3").disabled=false;}}
+function selectDuct(el,val,label){document.querySelectorAll(".duct-opt").forEach(o=>o.classList.remove("selected"));el.classList.add("selected");state.job=val;state.jobLabel=label;document.getElementById("next-3").disabled=false;}
+function selectOpt(el,step,val,label){el.closest(".options").querySelectorAll(".opt").forEach(o=>o.classList.remove("selected"));el.classList.add("selected");if(step===1){state.system=val;state.systemLabel=label;document.getElementById("next-1").disabled=false;}else if(step===2){state.size=val;state.sizeLabel=label;document.getElementById("next-2").disabled=false;}else if(step===3){state.job=val;state.jobLabel=label;document.getElementById("next-3").disabled=false;}}
+function goToStep(n){document.querySelectorAll(".step-panel").forEach(p=>p.classList.remove("active"));document.getElementById("result-panel").classList.remove("active");for(let i=1;i<=4;i++){const s=document.getElementById("seg-"+i);if(s)s.className="prog-seg"+(i<n?" done":i===n?" active":"");}const pl=document.getElementById("prog-label");if(pl)pl.textContent="Step "+n+" of 4";if(n===2)buildStep2();const sp=document.getElementById("step-"+n);if(sp)sp.classList.add("active");}
+function buildStep2(){const sys=pricing[state.system];const q=document.getElementById("step2-q");if(q)q.textContent=sys.step2q||"Home size?";const h=document.getElementById("step2-hint");if(h)h.textContent=sys.step2hint||"Select your approximate square footage";const cont=document.getElementById("opts-2");cont.innerHTML="";state.size=null;state.sizeLabel=null;document.getElementById("next-2").disabled=true;sys.sizes.forEach(s=>{const btn=document.createElement("button");btn.className="opt";btn.innerHTML="<div><div class=\"opt-label\">"+s.label+"</div><div class=\"opt-sub\">"+s.sub+"</div></div>";btn.onclick=function(){selectOpt(this,2,s.id,s.label);};cont.appendChild(btn);});}
+function checkCity(val){const msg=document.getElementById("city-msg");const btn=document.getElementById("next-4");if(!val){if(msg)msg.textContent="";if(btn)btn.disabled=true;return;}state.city=val;if(msg){msg.textContent="✓ Great — we serve "+val;msg.style.color="#7DC43A";}if(btn)btn.disabled=false;}
+function runLoadingBar(message,accentColor,callback){const overlay=document.getElementById("loading-overlay");const bar=document.getElementById("loading-bar-fill");const pct=document.getElementById("loading-pct");const msg=document.getElementById("loading-message");if(msg)msg.textContent=message;if(bar){bar.style.background=accentColor;bar.style.width="0%";}if(pct)pct.textContent="0%";if(overlay)overlay.classList.add("active");let progress=0;const timer=setInterval(()=>{progress=Math.min(progress+2.2,100);if(bar)bar.style.width=progress+"%";if(pct)pct.textContent=Math.round(progress)+"%";if(progress>=100){clearInterval(timer);setTimeout(()=>{if(overlay)overlay.classList.remove("active");callback();},150);}},40);}
+function showResult(){document.querySelectorAll(".step-panel").forEach(p=>p.classList.remove("active"));runLoadingBar("Checking local AC installation rates...","#1B6FC8",showResult_actual);}
+function showResult_actual(){const sys=pricing[state.system];const range=sys.ranges[state.size][state.job];const breakdown=sys.breakdown[state.job];for(let i=1;i<=4;i++){const s=document.getElementById("seg-"+i);if(s)s.className="prog-seg done";}const pl=document.getElementById("prog-label");if(pl)pl.textContent="Your estimate";const re=document.getElementById("result-eyebrow");if(re)re.textContent="YOUR "+state.city.toUpperCase()+" ESTIMATE — 2026";const rs=document.getElementById("result-system");if(rs)rs.textContent=state.systemLabel+" — "+state.sizeLabel;const rr=document.getElementById("result-range");if(rr)rr.textContent=fmt(range[0])+" – "+fmt(range[1]);const rl=document.getElementById("result-local");if(rl)rl.textContent=state.system==="not-sure"?"Estimated range based on typical installations in Greater Snohomish County — 2026 pricing.":"Based on recent installations in Greater Snohomish County — 2026 pricing.";const rd=document.getElementById("result-disclaimer");if(rd)rd.textContent="Final cost depends on equipment brand, site conditions, and permit fees ($150–$400).";let bdHtml="<div class=\"bd-title\">What's typically included</div>";breakdown.forEach(r=>{bdHtml+="<div class=\"bd-row\"><span>"+r[0]+"</span><span>"+r[1]+"</span></div>";});const rbd=document.getElementById("result-breakdown");if(rbd)rbd.innerHTML=bdHtml;const rebateEl=document.getElementById("rebate-note");if(rebateEl){if(sys.rebate){rebateEl.textContent="Washington State rebates may reduce your cost by $500–$1,500. Ask your pro about current programs.";rebateEl.style.display="block";}else{rebateEl.style.display="none";}}const cq=document.getElementById("cta-q");if(cq)cq.textContent="Want an exact number? A local installer in "+state.city+" can give you a firm quote — free, same-day response.";fetch(WEBHOOK,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({lead_type:"cold",session_id:sessionID,source:"ac-calc",timestamp:new Date().toISOString(),system_type:state.systemLabel,size:state.sizeLabel,job:state.jobLabel,city:state.city})}).catch(()=>{});const rp=document.getElementById("result-panel");if(rp)rp.classList.add("active");const cc=document.querySelector(".calc-card");if(cc)cc.scrollIntoView({behavior:"smooth",block:"start"});}
+function restartCalc(){state.system=state.systemLabel=state.size=state.sizeLabel=state.job=state.jobLabel=state.city=null;const cs=document.getElementById("city-select");if(cs)cs.value="";const cm=document.getElementById("city-msg");if(cm)cm.textContent="";document.querySelectorAll(".opt").forEach(o=>o.classList.remove("selected"));document.getElementById("next-1").disabled=true;const dq=document.getElementById("duct-question");if(dq)dq.classList.remove("active");document.querySelectorAll(".duct-opt").forEach(o=>o.classList.remove("selected"));const rp=document.getElementById("result-panel");if(rp)rp.classList.remove("active");["form-section","done-msg","warm-box","thankyou-warm","thankyou-skip"].forEach(id=>{const el=document.getElementById(id);if(el)el.style.display="none";});const cb=document.getElementById("cta-box");if(cb)cb.style.display="block";const bs=document.getElementById("btn-submit");if(bs){bs.textContent="Get My Instant Estimate →";bs.disabled=true;}const fa=document.getElementById("f-agree");if(fa)fa.checked=false;const ea=document.getElementById("email-agree");if(ea)ea.checked=false;const eo=document.getElementById("email-only");if(eo)eo.value="";goToStep(1);const s1=document.getElementById("step-1");if(s1)s1.classList.add("active");}
+function showForm(){const cb=document.getElementById("cta-box");if(cb)cb.style.display="none";const fs=document.getElementById("form-section");if(fs)fs.style.display="block";}
+function showNotYet(){const cb=document.getElementById("cta-box");if(cb)cb.style.display="none";const wb=document.getElementById("warm-box");if(wb)wb.style.display="block";}
+function showSkip(){const wb=document.getElementById("warm-box");if(wb)wb.style.display="none";const ts=document.getElementById("thankyou-skip");if(ts)ts.style.display="block";fetch(WEBHOOK,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({lead_type:"cold",session_id:sessionID,source:"ac-calc",timestamp:new Date().toISOString(),system_type:state.systemLabel,size:state.sizeLabel,job:state.jobLabel,city:state.city})}).catch(()=>{});}
+function clearFErr(id){const el=document.getElementById(id);if(el)el.style.borderColor="";const err=document.getElementById(id+"-err");if(err)err.textContent="";}
+function clearWarmErr(){const el=document.getElementById("email-only");if(el)el.style.borderColor="";const err=document.getElementById("email-only-err");if(err)err.textContent="";}
+function toggleSubmit(){const a=document.getElementById("f-agree"),b=document.getElementById("btn-submit");if(a&&b)b.disabled=!a.checked;}
+function toggleWarmSubmit(){const a=document.getElementById("email-agree"),b=document.getElementById("btn-warm");if(a&&b)b.disabled=!a.checked;}
+function submitForm(){["f-name","f-phone","f-email"].forEach(id=>{const el=document.getElementById(id);if(el)el.style.borderColor="";const err=document.getElementById(id+"-err");if(err)err.textContent="";});const nameEl=document.getElementById("f-name"),phoneEl=document.getElementById("f-phone"),emailEl=document.getElementById("f-email");const name=(nameEl?nameEl.value.trim():"").replace(/<[^>]*>/g,"");const phone=(phoneEl?phoneEl.value.trim():"").replace(/<[^>]*>/g,"");const email=(emailEl?emailEl.value.trim():"").replace(/<[^>]*>/g,"");let valid=true;if(!name||name.length<2){if(nameEl)nameEl.style.borderColor="#E74C3C";const e1=document.getElementById("f-name-err");if(e1)e1.textContent="Please enter your name";valid=false;}const digits=phone.replace(/[^0-9]/g,"");if(digits.length<10){if(phoneEl)phoneEl.style.borderColor="#E74C3C";const e2=document.getElementById("f-phone-err");if(e2)e2.textContent="Please enter a valid 10-digit phone number";valid=false;}const emailRe=/^[^\s@]+@[^\s@]+\.[^\s@]+$/;if(!email||!emailRe.test(email)){if(emailEl)emailEl.style.borderColor="#E74C3C";const e3=document.getElementById("f-email-err");if(e3)e3.textContent="Please enter a valid email address";valid=false;}const pot=document.getElementById("h-pot");if(pot&&pot.value!=="")return;if(!valid)return;const btn=document.getElementById("btn-submit");if(btn){btn.textContent="Getting your estimate...";btn.disabled=true;}fetch(WEBHOOK,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({lead_type:"hot",session_id:sessionID,source:"ac-calc",timestamp:new Date().toISOString(),system_type:state.systemLabel,size:state.sizeLabel,job:state.jobLabel,city:state.city,name:name,phone:phone,email:email})}).catch(()=>{});const fs=document.getElementById("form-section");if(fs)fs.style.display="none";const dm=document.getElementById("done-msg");if(dm)dm.style.display="block";}
+function submitWarm(){const emailEl=document.getElementById("email-only");const email=(emailEl?emailEl.value.trim():"").replace(/<[^>]*>/g,"");const emailRe=/^[^\s@]+@[^\s@]+\.[^\s@]+$/;if(!email||!emailRe.test(email)){if(emailEl)emailEl.style.borderColor="#E74C3C";const err=document.getElementById("email-only-err");if(err)err.textContent="Please enter a valid email address";return;}const btn=document.getElementById("btn-warm");if(btn){btn.textContent="Sending...";btn.disabled=true;}fetch(WEBHOOK,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({lead_type:"warm",session_id:sessionID,source:"ac-calc",timestamp:new Date().toISOString(),system_type:state.systemLabel,size:state.sizeLabel,job:state.jobLabel,city:state.city,email:email})}).catch(()=>{});const wb=document.getElementById("warm-box");if(wb)wb.style.display="none";const tw=document.getElementById("thankyou-warm");if(tw)tw.style.display="block";}
+function toggleFaq(btn){const a=btn.nextElementSibling,open=btn.classList.contains("open");document.querySelectorAll(".faq-q").forEach(b=>{b.classList.remove("open");if(b.nextElementSibling)b.nextElementSibling.classList.remove("open");});if(!open){btn.classList.add("open");if(a)a.classList.add("open");}}
 </script>
 
 </body>
